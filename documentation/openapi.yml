@@ -1,0 +1,231 @@
+swagger: "2.0"
+info:
+  description: "API for institution related operations. It includes institutions, careers, programs, subjects and correlatives"
+  version: "0.0.1"
+  title: "api-institutions"
+basePath: "/v1"
+tags:
+  - name: "institutions"
+    description: "Manage institutions information"
+schemes:
+  - "https"
+paths:
+  /institutions:
+    get:
+      tags:
+        - "institutions"
+      summary: "Get all the available institutions"
+      operationId: "getInstitutions"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Institution"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "institutions"
+      summary: "Creates a institution"
+      operationId: "addInstitution"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Institution"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateInstitutionPayload"
+      responses:
+        "204":
+          description: "Institution created"
+        "500":
+          description: "Service error"
+  /institutions/{id}:
+    get:
+      tags:
+        - "institutions"
+      summary: "Get a specific institution"
+      operationId: "getInstitution"
+
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Institution"
+        "404":
+          description: "Institution not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "institutions"
+      summary: "Updates a institution"
+      operationId: "updateInstitution"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Institution"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateInstitutionPayload"
+      responses:
+        "204":
+          description: "Institution updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "institutions"
+      summary: "Deletes a institution"
+      operationId: "deleteInstitution"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to delete"
+          required: true
+      responses:
+        "204":
+          description: "Institution deleted"
+        "500":
+          description: "Service error"
+  /institutions/{id}/careers:
+    get:
+      tags:
+        - "institutions"
+      summary: "Get the careers of a institution"
+      operationId: "getInstitutionCareers"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Career"
+        "404":
+          description: "Institution not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "institutions"
+      summary: "Creates a career"
+      operationId: "createCareer"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Institution"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateCareerPayload"
+      responses:
+        "204":
+          description: "Institution updated"
+        "500":
+          description: "Service error"
+
+
+definitions:
+  Institution:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Universidad Tecnologica Nacional"
+      codename:
+        type: "string"
+        example: FRC
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  Career:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Ingenieria en sistemas"
+      codename:
+        type: "string"
+        example: FRC
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  CreateInstitutionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Universidad Tecnologica Nacional"
+      codename:
+        type: "string"
+        example: FRC
+  UpdateInstitutionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Ingenieria en sistemas"
+      codename:
+        type: "string"
+        example: FRC
+  CreateCareerPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Ingenieria en sistemas"
+      codename:
+        type: "string"
+        example: FRC

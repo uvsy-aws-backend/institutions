@@ -1,0 +1,40 @@
+programs_resource:
+  name: ${self:provider.stage}-${self:service}-programs_resource
+  handler: app.uvsy.InstitutionAPI
+  environment:
+    DB_DRIVER: ${self:custom.dbDriver}
+    DB_PROTOCOL: ${self:custom.dbProtocol}
+    DB_PORT: ${self:custom.dbPort}
+    DB_NAME: ${self:custom.dbName}
+    DB_HOST: ${self:custom.dbHost}
+    DB_USERNAME: ${self:custom.dbUser}
+    DB_PASSWORD: ${self:custom.dbPassword}
+  events:
+    - http:
+        path: /programs/{id}
+        method: GET
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}
+        method: PUT
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}
+        method: DELETE
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/activate
+        method: POST
+        request:
+          parameters:
+            paths:
+              id: true
