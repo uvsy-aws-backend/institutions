@@ -30,7 +30,7 @@ paths:
     post:
       tags:
         - "institutions"
-      summary: "Creates a institution"
+      summary: "Creates an institution"
       operationId: "addInstitution"
       consumes:
         - "application/json"
@@ -73,7 +73,7 @@ paths:
     put:
       tags:
         - "institutions"
-      summary: "Updates a institution"
+      summary: "Updates an institution"
       operationId: "updateInstitution"
       consumes:
         - "application/json"
@@ -97,7 +97,7 @@ paths:
     delete:
       tags:
         - "institutions"
-      summary: "Deletes a institution"
+      summary: "Deletes an institution"
       operationId: "deleteInstitution"
       parameters:
         - in: "path"
@@ -108,6 +108,26 @@ paths:
       responses:
         "204":
           description: "Institution deleted"
+        "500":
+          description: "Service error"
+  /institutions/{id}/activate:
+    post:
+      tags:
+        - "institutions"
+      summary: "Activate an institution"
+      operationId: "activateInstitution"
+
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to activate"
+          required: true
+      responses:
+        "204":
+          description: "Successful operation"
+        "404":
+          description: "Institution not found for given id"
         "500":
           description: "Service error"
   /institutions/{id}/careers:

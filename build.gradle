@@ -63,7 +63,7 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
 
     // Serverless API
-    compile "com.github.GonzaloSaad:java-serverless-api:1cdffa1"
+    compile "com.github.GonzaloSaad:java-serverless-api:ef8798d"
 
 }
 

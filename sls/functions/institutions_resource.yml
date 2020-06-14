@@ -13,12 +13,15 @@ institutions_resource:
     - http:
         path: /institutions
         method: GET
+        cors: true
     - http:
         path: /institutions
         method: POST
+        cors: true
     - http:
         path: /institutions/{id}
         method: GET
+        cors: true
         request:
           parameters:
             paths:
@@ -26,6 +29,7 @@ institutions_resource:
     - http:
         path: /institutions/{id}
         method: PUT
+        cors: true
         request:
           parameters:
             paths:
@@ -33,6 +37,7 @@ institutions_resource:
     - http:
         path: /institutions/{id}
         method: DELETE
+        cors: true
         request:
           parameters:
             paths:
@@ -40,6 +45,7 @@ institutions_resource:
     - http:
         path: /institutions/{id}/activate
         method: POST
+        cors: true
         request:
           parameters:
             paths:
@@ -47,6 +53,7 @@ institutions_resource:
     - http:
         path: /institutions/{id}/careers
         method: POST
+        cors: true
         request:
           parameters:
             paths:
@@ -54,6 +61,7 @@ institutions_resource:
     - http:
         path: /institutions/{id}/careers
         method: GET
+        cors: true
         request:
           parameters:
             paths:
