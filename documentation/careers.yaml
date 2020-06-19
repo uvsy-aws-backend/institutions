@@ -1,0 +1,235 @@
+swagger: "2.0"
+info:
+  description: "API for institution related operations. This doc covers only the careers resource"
+  version: "0.0.1"
+  title: "api-institutions"
+basePath: "/v1"
+tags:
+  - name: "careers"
+    description: "Manage careers information"
+schemes:
+  - "https"
+paths:
+  /careers/{id}:
+    get:
+      tags:
+        - "careers"
+      summary: "Get an specific career"
+      operationId: "getCareer"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Career"
+        "404":
+          description: "Career not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "careers"
+      summary: "Updates a career"
+      operationId: "updateCareer"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Career"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateCareerPayload"
+      responses:
+        "204":
+          description: "Career updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "careers"
+      summary: "Deletes a career"
+      operationId: "deleteCareer"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to delete"
+          required: true
+      responses:
+        "204":
+          description: "Career deleted"
+        "500":
+          description: "Service error"
+  /careers/{id}/activate:
+    post:
+      tags:
+        - "careers"
+      summary: "Activate a career"
+      operationId: "activateCareer"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to activate"
+          required: true
+      responses:
+        "204":
+          description: "Successful operation"
+        "404":
+          description: "Career not found for given id"
+        "500":
+          description: "Service error"
+  /careers/{id}/programs:
+    get:
+      tags:
+        - "careers"
+      summary: "Get the programs of a career"
+      operationId: "getCareerPrograms"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Program"
+        "404":
+          description: "Career not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "careers"
+      summary: "Creates a program"
+      operationId: "createProgram"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Program"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateProgramPayload"
+      responses:
+        "204":
+          description: "Career updated"
+        "500":
+          description: "Service error"
+
+
+definitions:
+  Career:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Universidad Tecnologica Nacional"
+      codename:
+        type: "string"
+        example: FRC
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  Program:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Plan 2008"
+      careerId:
+        type: "string"
+        format: "uuid"
+      validFrom:
+        type: "integer"
+        example: 1588896000000
+      validTo:
+        type: "integer"
+        example: 1588982400000
+      hours:
+        type: "integer"
+        example: 65
+      points:
+        type: "integer"
+        example: 25
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+      deactivatedAt:
+        type: "integer"
+        example: 1592092149591
+  UpdateCareerPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Ingenieria en Electronica"
+      codename:
+        type: "string"
+        example: "R"
+  CreateProgramPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Plan 2008"
+      validFrom:
+        type: "string"
+        example: "2020-05-08"
+      validTo:
+        type: "string"
+        example: "2020-05-09"
+      hours:
+        type: "integer"
+        example: 65
+      points:
+        type: "integer"
+        example: 25
+

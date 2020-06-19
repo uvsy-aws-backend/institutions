@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "API for institution related operations. It includes institutions, careers, programs, subjects and correlatives"
+  description: "API for institution related operations. This doc covers only the institutions resource"
   version: "0.0.1"
   title: "api-institutions"
 basePath: "/v1"
@@ -22,9 +22,12 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Institution"
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Institution"
         "500":
           description: "Service error"
     post:
@@ -65,7 +68,10 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Institution"
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Institution"
         "404":
           description: "Institution not found for given id"
         "500":
@@ -148,9 +154,12 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Career"
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Career"
         "404":
           description: "Institution not found for given id"
         "500":

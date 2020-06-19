@@ -83,12 +83,19 @@ public class CareerService {
 
     public List<Program> getPrograms(String careerId) {
         try (ConnectionSource conn = DBConnection.create()) {
-            Dao<Program, String> programDao = DaoManager.createDao(conn, Program.class);
-            return programDao.queryBuilder()
-                    .selectColumns()
-                    .where()
-                    .eq("career_id", careerId)
-                    .query();
+
+            Dao<Career, String> careerDao = DaoManager.createDao(conn, Career.class);
+            boolean careerExists = Optional.ofNullable(careerDao.queryForId(careerId)).isPresent();
+
+            if (careerExists) {
+                Dao<Program, String> programDao = DaoManager.createDao(conn, Program.class);
+                return programDao.queryBuilder()
+                        .selectColumns()
+                        .where()
+                        .eq("career_id", careerId)
+                        .query();
+            }
+            throw new RecordNotFoundException(careerId);
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();
@@ -97,25 +104,30 @@ public class CareerService {
     }
 
     public void createProgram(String careerId, String name, Date validFrom, Date validTo, Integer hours, Integer points) {
-
-        Program program = new Program();
-        program.setName(name);
-        program.setActive(Boolean.FALSE);
-        program.setCareerId(careerId);
-        program.setValidFrom(validFrom);
-        program.setValidTo(validTo);
-        program.setHours(hours);
-        program.setPoints(points);
-
         try (ConnectionSource conn = DBConnection.create()) {
-            Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
-            programsDao.create(program);
+            Dao<Career, String> careerDao = DaoManager.createDao(conn, Career.class);
+            boolean careerExists = Optional.ofNullable(careerDao.queryForId(careerId)).isPresent();
+
+            if (careerExists) {
+
+                Program program = new Program();
+                program.setName(name);
+                program.setActive(Boolean.FALSE);
+                program.setCareerId(careerId);
+                program.setValidFrom(validFrom);
+                program.setValidTo(validTo);
+                program.setHours(hours);
+                program.setPoints(points);
+
+                Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
+                programsDao.create(program);
+            } else {
+                throw new RecordNotFoundException(careerId);
+            }
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();
             throw new DBException(e);
         }
     }
-
-
 }
