@@ -13,6 +13,7 @@ careers_resource:
     - http:
         path: /careers/{id}
         method: GET
+        cors: true
         request:
           parameters:
             paths:
@@ -20,6 +21,7 @@ careers_resource:
     - http:
         path: /careers/{id}
         method: PUT
+        cors: true
         request:
           parameters:
             paths:
@@ -27,6 +29,7 @@ careers_resource:
     - http:
         path: /careers/{id}
         method: DELETE
+        cors: true
         request:
           parameters:
             paths:
@@ -34,6 +37,7 @@ careers_resource:
     - http:
         path: /careers/{id}/activate
         method: POST
+        cors: true
         request:
           parameters:
             paths:
@@ -41,6 +45,7 @@ careers_resource:
     - http:
         path: /careers/{id}/programs
         method: POST
+        cors: true
         request:
           parameters:
             paths:
@@ -48,6 +53,7 @@ careers_resource:
     - http:
         path: /careers/{id}/programs
         method: GET
+        cors: true
         request:
           parameters:
             paths:

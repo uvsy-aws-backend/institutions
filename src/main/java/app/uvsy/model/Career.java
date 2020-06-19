@@ -41,6 +41,7 @@ public class Career {
     @DatabaseField(columnName = "updated_at", readOnly = true)
     private Timestamp updatedAt;
 
+    @JsonIgnore
     @ForeignCollectionField(eager = true, foreignFieldName = "career")
     private ForeignCollection<Program> programs;
 
