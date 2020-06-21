@@ -38,3 +38,17 @@ programs_resource:
           parameters:
             paths:
               id: true
+    - http:
+        path: /programs/{id}/subjects
+        method: GET
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/subjects
+        method: POST
+        request:
+          parameters:
+            paths:
+              id: true
