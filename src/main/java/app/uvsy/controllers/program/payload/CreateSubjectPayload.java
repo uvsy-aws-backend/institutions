@@ -3,21 +3,25 @@ package app.uvsy.controllers.program.payload;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
-import java.util.Date;
-
 @Getter
 public class CreateSubjectPayload {
 
     private final String name;
+    private final String codename;
     private final Integer hours;
     private final Integer points;
+    private final Boolean optative;
 
 
     public CreateSubjectPayload(@JsonProperty(value = "name", required = true) String name,
+                                @JsonProperty(value = "codename", required = true) String codename,
                                 @JsonProperty(value = "hours", required = true) Integer hours,
-                                @JsonProperty(value = "points", required = true) Integer points) {
+                                @JsonProperty(value = "points", required = true) Integer points,
+                                @JsonProperty(value = "optative", required = true) Boolean optative) {
         this.name = name;
+        this.codename = codename;
         this.hours = hours;
         this.points = points;
+        this.optative = optative;
     }
 }

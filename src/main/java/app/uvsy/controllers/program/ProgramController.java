@@ -27,8 +27,15 @@ public class ProgramController {
     }
 
     @Handler(method = HttpMethod.PUT, resource = "/programs/{id}")
-    public void updateProgram(@PathParameter(name = "id") String programId, @BodyParameter UpdateProgramPayload body) {
-        programService.updateProgram(programId, body.getCodename());
+    public void updateProgram(@PathParameter(name = "id") String programId, @BodyParameter UpdateProgramPayload payload) {
+        programService.updateProgram(
+                programId,
+                payload.getName(),
+                payload.getValidFrom(),
+                payload.getValidTo(),
+                payload.getHours(),
+                payload.getPoints()
+        );
     }
 
     @Handler(method = HttpMethod.DELETE, resource = "/programs/{id}")
@@ -52,7 +59,8 @@ public class ProgramController {
                 programId,
                 payload.getName(),
                 payload.getHours(),
-                payload.getPoints()
+                payload.getPoints(),
+                payload.getOptative()
         );
     }
 }

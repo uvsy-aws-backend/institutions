@@ -12,6 +12,7 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +31,17 @@ public class ProgramService {
         }
     }
 
-    public void updateProgram(String programId, String codename) {
-
+    public void updateProgram(String programId, String name, Date validFrom, Date validTo, Integer hours, Integer points) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
             Program program = Optional.ofNullable(programsDao.queryForId(programId))
                     .orElseThrow(() -> new RecordNotFoundException(programId));
+
+            program.setName(name);
+            program.setValidFrom(validFrom);
+            program.setValidTo(validTo);
+            program.setHours(hours);
+            program.setPoints(points);
 
             programsDao.update(program);
         } catch (SQLException | IOException e) {
@@ -78,13 +84,14 @@ public class ProgramService {
         }
     }
 
-    public void createSubject(String programId, String name, Integer hours, Integer points) {
+    public void createSubject(String programId, String name, Integer hours, Integer points, Boolean optative) {
 
         Subject subject = new Subject();
         subject.setName(name);
         subject.setActive(Boolean.FALSE);
         subject.setHours(hours);
         subject.setPoints(points);
+        subject.setOptative(optative);
         subject.setProgramId(programId);
 
 
@@ -100,12 +107,18 @@ public class ProgramService {
 
     public List<Subject> getSubjects(String programId) {
         try (ConnectionSource conn = DBConnection.create()) {
-            Dao<Subject, String> subjectDao = DaoManager.createDao(conn, Subject.class);
-            return subjectDao.queryBuilder()
-                    .selectColumns()
-                    .where()
-                    .eq("program_id", programId)
-                    .query();
+            Dao<Program, String> programDao = DaoManager.createDao(conn, Program.class);
+            boolean programExists = Optional.ofNullable(programDao.queryForId(programId)).isPresent();
+
+            if (programExists) {
+                Dao<Subject, String> subjectDao = DaoManager.createDao(conn, Subject.class);
+                return subjectDao.queryBuilder()
+                        .selectColumns()
+                        .where()
+                        .eq("program_id", programId)
+                        .query();
+            }
+            throw new RecordNotFoundException(programId);
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();

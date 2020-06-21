@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Getter
 @Setter
-@DatabaseTable(tableName = "career")
+@DatabaseTable(tableName = "subject")
 public class Subject {
 
     @DatabaseField(columnName = "id", id = true, readOnly = true)
