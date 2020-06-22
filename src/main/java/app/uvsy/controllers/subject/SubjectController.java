@@ -26,8 +26,15 @@ public class SubjectController {
     }
 
     @Handler(method = HttpMethod.PUT, resource = "/subjects/{id}")
-    public void updateSubject(@PathParameter(name = "id") String subjectId, @BodyParameter UpdateSubjectPayload body) {
-        subjectService.updateSubject(subjectId, body.getCodename());
+    public void updateSubject(@PathParameter(name = "id") String subjectId, @BodyParameter UpdateSubjectPayload payload) {
+        subjectService.updateSubject(
+                subjectId,
+                payload.getName(),
+                payload.getCodename(),
+                payload.getHours(),
+                payload.getPoints(),
+                payload.getOptative()
+        );
     }
 
     @Handler(method = HttpMethod.DELETE, resource = "/subjects/{id}")

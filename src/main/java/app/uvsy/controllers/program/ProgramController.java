@@ -58,6 +58,7 @@ public class ProgramController {
         programService.createSubject(
                 programId,
                 payload.getName(),
+                payload.getCodename(),
                 payload.getHours(),
                 payload.getPoints(),
                 payload.getOptative()
