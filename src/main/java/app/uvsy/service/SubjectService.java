@@ -11,7 +11,6 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.Optional;
 
 public class SubjectService {
@@ -29,12 +28,18 @@ public class SubjectService {
         }
     }
 
-    public void updateSubject(String subjectId, String codename) {
+    public void updateSubject(String subjectId, String name, String codename, Integer hours, Integer points, Boolean optative) {
 
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Subject, String> subjectsDao = DaoManager.createDao(conn, Subject.class);
             Subject subject = Optional.ofNullable(subjectsDao.queryForId(subjectId))
                     .orElseThrow(() -> new RecordNotFoundException(subjectId));
+
+            subject.setName(name);
+            subject.setCodename(codename);
+            subject.setHours(hours);
+            subject.setPoints(points);
+            subject.setOptative(optative);
 
             subjectsDao.update(subject);
         } catch (SQLException | IOException e) {
