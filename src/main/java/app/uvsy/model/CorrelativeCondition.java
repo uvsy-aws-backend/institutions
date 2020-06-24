@@ -1,6 +1,6 @@
 package app.uvsy.model;
 
-public enum CorrelativeType {
+public enum CorrelativeCondition {
     APPROVED,
     REGULAR
 }

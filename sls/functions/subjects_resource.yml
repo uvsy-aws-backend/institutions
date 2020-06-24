@@ -38,3 +38,19 @@ subjects_resource:
           parameters:
             paths:
               id: true
+
+    - http:
+        path: /subjects/{id}/correlatives
+        method: GET
+        request:
+          parameters:
+            paths:
+              id: true
+
+    - http:
+        path: /subjects/{id}/correlatives
+        method: POST
+        request:
+          parameters:
+            paths:
+              id: true
