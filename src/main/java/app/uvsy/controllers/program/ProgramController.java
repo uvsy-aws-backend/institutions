@@ -59,6 +59,7 @@ public class ProgramController {
                 programId,
                 payload.getName(),
                 payload.getCodename(),
+                payload.getLevel(),
                 payload.getHours(),
                 payload.getPoints(),
                 payload.getOptative()

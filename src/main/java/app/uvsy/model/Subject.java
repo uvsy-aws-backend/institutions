@@ -2,11 +2,13 @@ package app.uvsy.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Optional;
 
 
@@ -23,6 +25,9 @@ public class Subject {
 
     @DatabaseField(columnName = "codename")
     private String codename;
+
+    @DatabaseField(columnName = "level")
+    private Integer level;
 
     @DatabaseField(columnName = "program_id")
     private String programId;
@@ -42,6 +47,9 @@ public class Subject {
 
     @DatabaseField(columnName = "optative")
     private Boolean optative;
+
+    @ForeignCollectionField(eager = true, foreignFieldName = "subject")
+    private Collection<Correlative> correlatives;
 
     @DatabaseField(columnName = "created_at", readOnly = true)
     private Timestamp createdAt;

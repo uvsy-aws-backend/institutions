@@ -13,6 +13,7 @@ subjects_resource:
     - http:
         path: /subjects/{id}
         method: GET
+        cors: true
         request:
           parameters:
             paths:
@@ -20,6 +21,7 @@ subjects_resource:
     - http:
         path: /subjects/{id}
         method: PUT
+        cors: true
         request:
           parameters:
             paths:
@@ -27,6 +29,7 @@ subjects_resource:
     - http:
         path: /subjects/{id}
         method: DELETE
+        cors: true
         request:
           parameters:
             paths:
@@ -34,6 +37,24 @@ subjects_resource:
     - http:
         path: /subjects/{id}/activate
         method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+
+    - http:
+        path: /subjects/{id}/correlatives
+        method: GET
+        request:
+          parameters:
+            paths:
+              id: true
+
+    - http:
+        path: /subjects/{id}/correlatives
+        method: POST
+        cors: true
         request:
           parameters:
             paths:

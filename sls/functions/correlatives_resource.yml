@@ -1,5 +1,5 @@
-programs_resource:
-  name: ${self:provider.stage}-${self:service}-programs_resource
+correlatives_resource:
+  name: ${self:provider.stage}-${self:service}-correlatives_resource
   handler: app.uvsy.InstitutionAPI
   environment:
     DB_DRIVER: ${self:custom.dbDriver}
@@ -11,7 +11,7 @@ programs_resource:
     DB_PASSWORD: ${self:custom.dbPassword}
   events:
     - http:
-        path: /programs/{id}
+        path: /correlatives/{id}
         method: GET
         cors: true
         request:
@@ -19,7 +19,7 @@ programs_resource:
             paths:
               id: true
     - http:
-        path: /programs/{id}
+        path: /correlatives/{id}
         method: PUT
         cors: true
         request:
@@ -27,32 +27,8 @@ programs_resource:
             paths:
               id: true
     - http:
-        path: /programs/{id}
+        path: /correlatives/{id}
         method: DELETE
-        cors: true
-        request:
-          parameters:
-            paths:
-              id: true
-    - http:
-        path: /programs/{id}/activate
-        method: POST
-        cors: true
-        request:
-          parameters:
-            paths:
-              id: true
-    - http:
-        path: /programs/{id}/subjects
-        method: GET
-        cors: true
-        request:
-          parameters:
-            paths:
-              id: true
-    - http:
-        path: /programs/{id}/subjects
-        method: POST
         cors: true
         request:
           parameters:

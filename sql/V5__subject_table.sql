@@ -3,6 +3,7 @@ CREATE TABLE subject (
     name VARCHAR NOT NULL,
     codename VARCHAR,
     program_id VARCHAR NOT NULL,
+    level SMALLSERIAL NOT NULL,
     hours SMALLSERIAL NOT NULL,
     points SMALLSERIAL NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,

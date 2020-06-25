@@ -84,11 +84,12 @@ public class ProgramService {
         }
     }
 
-    public void createSubject(String programId, String name, String codename, Integer hours, Integer points, Boolean optative) {
+    public void createSubject(String programId, String name, String codename, Integer level, Integer hours, Integer points, Boolean optative) {
 
         Subject subject = new Subject();
         subject.setName(name);
         subject.setCodename(codename);
+        subject.setLevel(level);
         subject.setActive(Boolean.FALSE);
         subject.setHours(hours);
         subject.setPoints(points);

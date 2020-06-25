@@ -2,6 +2,9 @@ package app.uvsy.service;
 
 import app.uvsy.database.DBConnection;
 import app.uvsy.database.DBException;
+import app.uvsy.model.Correlative;
+import app.uvsy.model.CorrelativeCondition;
+import app.uvsy.model.CorrelativeRestriction;
 import app.uvsy.model.Subject;
 import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
@@ -28,7 +31,7 @@ public class SubjectService {
         }
     }
 
-    public void updateSubject(String subjectId, String name, String codename, Integer hours, Integer points, Boolean optative) {
+    public void updateSubject(String subjectId, String name, String codename, Integer level, Integer hours, Integer points, Boolean optative) {
 
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Subject, String> subjectsDao = DaoManager.createDao(conn, Subject.class);
@@ -75,6 +78,54 @@ public class SubjectService {
             }
 
             subjectsDao.delete(subject);
+        } catch (SQLException | IOException e) {
+            // TODO: Add logger error
+            e.printStackTrace();
+            throw new DBException(e);
+        }
+    }
+
+    public Object getCorrelatives(String subjectId) {
+        try (ConnectionSource conn = DBConnection.create()) {
+            Dao<Subject, String> subjectDao = DaoManager.createDao(conn, Subject.class);
+
+            boolean subjectExists = Optional.ofNullable(subjectDao.queryForId(subjectId)).isPresent();
+
+            if (subjectExists) {
+                Dao<Correlative, String> correlativeDao = DaoManager.createDao(conn, Correlative.class);
+                return correlativeDao.queryBuilder()
+                        .selectColumns()
+                        .where()
+                        .eq("subject_id", subjectId)
+                        .query();
+            }
+            throw new RecordNotFoundException(subjectId);
+        } catch (SQLException | IOException e) {
+            // TODO: Add logger error
+            e.printStackTrace();
+            throw new DBException(e);
+        }
+    }
+
+    public void createCorrelative(String subjectId, String correlativeSubjectId, CorrelativeRestriction restriction, CorrelativeCondition condition) {
+        try (ConnectionSource conn = DBConnection.create()) {
+            Dao<Subject, String> subjectDao = DaoManager.createDao(conn, Subject.class);
+
+            boolean subjectExists = Optional.ofNullable(subjectDao.queryForId(subjectId)).isPresent();
+
+            if (subjectExists) {
+
+                Correlative correlative = new Correlative();
+                correlative.setSubjectId(subjectId);
+                correlative.setCorrelativeSubjectId(correlativeSubjectId);
+                correlative.setCorrelativeCondition(condition);
+                correlative.setCorrelativeRestriction(restriction);
+
+                Dao<Correlative, String> correlativeDao = DaoManager.createDao(conn, Correlative.class);
+                correlativeDao.create(correlative);
+            } else {
+                throw new RecordNotFoundException(subjectId);
+            }
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();
