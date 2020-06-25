@@ -32,6 +32,7 @@ public class SubjectController {
                 subjectId,
                 payload.getName(),
                 payload.getCodename(),
+                payload.getLevel(),
                 payload.getHours(),
                 payload.getPoints(),
                 payload.getOptative()

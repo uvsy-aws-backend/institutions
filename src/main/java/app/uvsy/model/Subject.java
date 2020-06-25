@@ -27,6 +27,9 @@ public class Subject {
     @DatabaseField(columnName = "codename")
     private String codename;
 
+    @DatabaseField(columnName = "level")
+    private Integer level;
+
     @DatabaseField(columnName = "program_id")
     private String programId;
 

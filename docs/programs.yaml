@@ -197,6 +197,9 @@ definitions:
       codename:
         type: "string"
         example: "DSI"
+      level:
+        type: "integer"
+        example: 2
       programId:
         type: "string"
         format: "uuid"
@@ -243,6 +246,9 @@ definitions:
       codename:
         type: "string"
         example: "DSI"
+      level:
+        type: "integer"
+        example: 2
       hours:
         type: "integer"
         example: 2

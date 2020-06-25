@@ -32,7 +32,7 @@ public class SubjectService {
         }
     }
 
-    public void updateSubject(String subjectId, String name, String codename, Integer hours, Integer points, Boolean optative) {
+    public void updateSubject(String subjectId, String name, String codename, Integer level, Integer hours, Integer points, Boolean optative) {
 
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Subject, String> subjectsDao = DaoManager.createDao(conn, Subject.class);

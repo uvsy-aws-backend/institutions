@@ -8,6 +8,7 @@ public class UpdateSubjectPayload {
 
     private final String name;
     private final String codename;
+    private final Integer level;
     private final Integer hours;
     private final Integer points;
     private final Boolean optative;
@@ -16,10 +17,12 @@ public class UpdateSubjectPayload {
     public UpdateSubjectPayload(@JsonProperty(value = "name", required = true) String name,
                                 @JsonProperty(value = "codename", required = true) String codename,
                                 @JsonProperty(value = "hours", required = true) Integer hours,
+                                @JsonProperty(value = "level", required = true) Integer level,
                                 @JsonProperty(value = "points", required = true) Integer points,
                                 @JsonProperty(value = "optative", required = true) Boolean optative) {
         this.name = name;
         this.codename = codename;
+        this.level = level;
         this.hours = hours;
         this.points = points;
         this.optative = optative;
