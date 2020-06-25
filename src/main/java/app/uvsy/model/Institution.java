@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Getter
@@ -40,11 +39,11 @@ public class Institution {
     @ForeignCollectionField(eager = true, foreignFieldName = "institution")
     private ForeignCollection<Career> careers;
 
-    public boolean isActive(){
+    public boolean isActive() {
         return Optional.ofNullable(active).orElse(Boolean.FALSE);
     }
 
-    public void activate(){
+    public void activate() {
         this.active = Boolean.TRUE;
     }
 

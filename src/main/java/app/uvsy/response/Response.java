@@ -15,7 +15,7 @@ public class Response implements Serializable {
         this.data = data;
     }
 
-    public static Response of(Object object){
+    public static Response of(Object object) {
         return new Response(object);
     }
 }

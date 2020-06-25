@@ -5,8 +5,6 @@ import app.uvsy.database.DBException;
 import app.uvsy.model.Correlative;
 import app.uvsy.model.CorrelativeCondition;
 import app.uvsy.model.CorrelativeRestriction;
-import app.uvsy.model.Correlative;
-import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
