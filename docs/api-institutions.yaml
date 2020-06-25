@@ -1,0 +1,960 @@
+swagger: "2.0"
+info:
+  description: "API for institution related operations."
+  version: "0.0.1"
+  title: "api-institutions"
+basePath: "/v1"
+tags:
+  - name: "institutions"
+    description: "Manage institutions information"
+  - name: "careers"
+    description: "Manage careers information"
+  - name: "programs"
+    description: "Manage programs information"
+  - name: "subjects"
+    description: "Manage subjects information"
+  - name: "correlatives"
+    description: "Manage correlatives information"
+schemes:
+  - "https"
+paths:
+  /institutions:
+    get:
+      tags:
+        - "institutions"
+      summary: "Get all the available institutions"
+      operationId: "getInstitutions"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Institution"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "institutions"
+      summary: "Creates an institution"
+      operationId: "addInstitution"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Institution"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateInstitutionPayload"
+      responses:
+        "204":
+          description: "Institution created"
+        "500":
+          description: "Service error"
+  /institutions/{id}:
+    get:
+      tags:
+        - "institutions"
+      summary: "Get a specific institution"
+      operationId: "getInstitution"
+
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Institution"
+        "404":
+          description: "Institution not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "institutions"
+      summary: "Updates an institution"
+      operationId: "updateInstitution"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Institution"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateInstitutionPayload"
+      responses:
+        "204":
+          description: "Institution updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "institutions"
+      summary: "Deletes an institution"
+      operationId: "deleteInstitution"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to delete"
+          required: true
+      responses:
+        "204":
+          description: "Institution deleted"
+        "500":
+          description: "Service error"
+  /institutions/{id}/activate:
+    post:
+      tags:
+        - "institutions"
+      summary: "Activate an institution"
+      operationId: "activateInstitution"
+
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to activate"
+          required: true
+      responses:
+        "204":
+          description: "Successful operation"
+        "404":
+          description: "Institution not found for given id"
+        "500":
+          description: "Service error"
+  /institutions/{id}/careers:
+    get:
+      tags:
+        - "institutions"
+      summary: "Get the careers of a institution"
+      operationId: "getInstitutionCareers"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Career"
+        "404":
+          description: "Institution not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "institutions"
+      summary: "Creates a career"
+      operationId: "createCareer"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the institution to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Institution"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateCareerPayload"
+      responses:
+        "204":
+          description: "Institution updated"
+        "500":
+          description: "Service error"
+  /careers/{id}:
+    get:
+      tags:
+        - "careers"
+      summary: "Get an specific career"
+      operationId: "getCareer"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Career"
+        "404":
+          description: "Career not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "careers"
+      summary: "Updates a career"
+      operationId: "updateCareer"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Career"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateCareerPayload"
+      responses:
+        "204":
+          description: "Career updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "careers"
+      summary: "Deletes a career"
+      operationId: "deleteCareer"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to delete"
+          required: true
+      responses:
+        "204":
+          description: "Career deleted"
+        "500":
+          description: "Service error"
+  /careers/{id}/activate:
+    post:
+      tags:
+        - "careers"
+      summary: "Activate a career"
+      operationId: "activateCareer"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to activate"
+          required: true
+      responses:
+        "204":
+          description: "Successful operation"
+        "404":
+          description: "Career not found for given id"
+        "500":
+          description: "Service error"
+  /careers/{id}/programs:
+    get:
+      tags:
+        - "careers"
+      summary: "Get the programs of a career"
+      operationId: "getCareerPrograms"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Program"
+        "404":
+          description: "Career not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "careers"
+      summary: "Creates a program"
+      operationId: "createProgram"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the career to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Program"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateProgramPayload"
+      responses:
+        "204":
+          description: "Career updated"
+        "500":
+          description: "Service error"
+  /programs/{id}:
+    get:
+      tags:
+        - "programs"
+      summary: "Get an specific program"
+      operationId: "getProgram"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Program"
+        "404":
+          description: "Program not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "programs"
+      summary: "Updates a program"
+      operationId: "updateProgram"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Program"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateProgramPayload"
+      responses:
+        "204":
+          description: "Program updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "programs"
+      summary: "Deletes a program"
+      operationId: "deleteProgram"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to delete"
+          required: true
+      responses:
+        "204":
+          description: "Program deleted"
+        "500":
+          description: "Service error"
+  /programs/{id}/activate:
+    post:
+      tags:
+        - "programs"
+      summary: "Activate a program"
+      operationId: "activateProgram"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to activate"
+          required: true
+      responses:
+        "204":
+          description: "Successful operation"
+        "404":
+          description: "Program not found for given id"
+        "500":
+          description: "Service error"
+  /programs/{id}/subjects:
+    get:
+      tags:
+        - "programs"
+      summary: "Get the subjects of a program"
+      operationId: "getProgramSubjects"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Subject"
+        "404":
+          description: "Program not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "programs"
+      summary: "Creates a subject"
+      operationId: "createSubject"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Subject"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateSubjectPayload"
+      responses:
+        "204":
+          description: "Program updated"
+        "500":
+          description: "Service error"
+  /subjects/{id}:
+    get:
+      tags:
+        - "subjects"
+      summary: "Get an specific subject"
+      operationId: "getSubject"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Subject"
+        "404":
+          description: "Subject not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "subjects"
+      summary: "Updates a subject"
+      operationId: "updateSubject"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Subject"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateSubjectPayload"
+      responses:
+        "204":
+          description: "Subject updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "subjects"
+      summary: "Deletes a subject"
+      operationId: "deleteSubject"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject to delete"
+          required: true
+      responses:
+        "204":
+          description: "Subject deleted"
+        "500":
+          description: "Service error"
+  /subjects/{id}/activate:
+    post:
+      tags:
+        - "subjects"
+      summary: "Activate a subject"
+      operationId: "activateSubject"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject to activate"
+          required: true
+      responses:
+        "204":
+          description: "Successful operation"
+        "404":
+          description: "Subject not found for given id"
+        "500":
+          description: "Service error"
+  /subjects/{id}/correlatives:
+    get:
+      tags:
+        - "subjects"
+      summary: "Get the correlatives of a subject"
+      operationId: "getSubjectCorrelatives"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Correlative"
+        "404":
+          description: "Subject not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "subjects"
+      summary: "Creates a correlative"
+      operationId: "createCorrelative"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Correlative"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateCorrelativePayload"
+      responses:
+        "204":
+          description: "Subject updated"
+        "500":
+          description: "Service error"
+  /correlatives/{id}:
+    get:
+      tags:
+        - "correlatives"
+      summary: "Get an specific correlative"
+      operationId: "getCorrelative"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the correlative to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Correlative"
+        "404":
+          description: "Correlative not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "correlatives"
+      summary: "Updates a correlative"
+      operationId: "updateCorrelative"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the correlative to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Correlative"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateCorrelativePayload"
+      responses:
+        "204":
+          description: "Correlative updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "correlatives"
+      summary: "Deletes a correlative"
+      operationId: "deleteCorrelative"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the correlative to delete"
+          required: true
+      responses:
+        "204":
+          description: "Correlative deleted"
+        "500":
+          description: "Service error"
+
+
+definitions:
+  Institution:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Universidad Tecnologica Nacional"
+      codename:
+        type: "string"
+        example: FRC
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  Career:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Ingenieria en sistemas"
+      codename:
+        type: "string"
+        example: FRC
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  Program:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Plan 2008"
+      careerId:
+        type: "string"
+        format: "uuid"
+      validFrom:
+        type: "integer"
+        example: 1588896000000
+      validTo:
+        type: "integer"
+        example: 1588982400000
+      hours:
+        type: "integer"
+        example: 65
+      points:
+        type: "integer"
+        example: 25
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+      deactivatedAt:
+        type: "integer"
+        example: 1592092149591
+  Subject:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "Diseño de Sistemas"
+      codename:
+        type: "string"
+        example: "DSI"
+      level:
+        type: "integer"
+        example: 2
+      programId:
+        type: "string"
+        format: "uuid"
+      hours:
+        type: "integer"
+        example: 2
+      points:
+        type: "integer"
+        example: 1
+      active:
+        type: "boolean"
+      optative:
+        type: "boolean"
+      correlatives:
+        type: "array"
+        items:
+          $ref: "#/definitions/Correlative"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  Correlative:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      correlativeSubjectId:
+        type: "string"
+        format: "uuid"
+      correlativeCondition:
+        type: "string"
+        enum:
+          - APPROVED
+          - REGULAR
+      correlativeRestriction:
+        type: "string"
+        enum:
+          - TO_TAKE
+          - TO_APPROVE
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  CreateInstitutionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Universidad Tecnologica Nacional"
+      codename:
+        type: "string"
+        example: FRC
+  UpdateInstitutionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Ingenieria en sistemas"
+      codename:
+        type: "string"
+        example: FRC
+  CreateCareerPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Ingenieria en sistemas"
+      codename:
+        type: "string"
+        example: FRC
+  UpdateCareerPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Ingenieria en Electronica"
+      codename:
+        type: "string"
+        example: "R"
+  CreateProgramPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Plan 2008"
+      validFrom:
+        type: "string"
+        example: "2020-05-08"
+      validTo:
+        type: "string"
+        example: "2020-05-09"
+      hours:
+        type: "integer"
+        example: 65
+      points:
+        type: "integer"
+        example: 25
+  UpdateProgramPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Plan 2008"
+      validFrom:
+        type: "string"
+        example: "2020-05-08"
+      validTo:
+        type: "string"
+        example: "2020-05-09"
+      hours:
+        type: "integer"
+        example: 65
+      points:
+        type: "integer"
+        example: 25
+  CreateSubjectPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Diseño de Sistemas"
+      codename:
+        type: "string"
+        example: "DSI"
+      level:
+        type: "integer"
+        example: 2
+      hours:
+        type: "integer"
+        example: 2
+      points:
+        type: "integer"
+        example: 2
+      optative:
+        type: "boolean"
+  UpdateSubjectPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Diseño de Sistemas"
+      codename:
+        type: "string"
+        example: "DSI"
+      level:
+        type: "integer"
+        example: 2
+      hours:
+        type: "integer"
+        example: 4
+      points:
+        type: "integer"
+        example: 2
+      optative:
+        type: "boolean"
+  CreateCorrelativePayload:
+    type: "object"
+    properties:
+      correlativeSubjectId:
+        type: "string"
+        format: "uuid"
+      correlativeCondition:
+        type: "string"
+        enum:
+          - APPROVED
+          - REGULAR
+      correlativeRestriction:
+        type: "string"
+        enum:
+          - TO_TAKE
+          - TO_APPROVE
+  UpdateCorrelativePayload:
+    type: "object"
+    properties:
+      correlativeSubjectId:
+        type: "string"
+        format: "uuid"
+      correlativeCondition:
+        type: "string"
+        enum:
+          - APPROVED
+          - REGULAR
+      correlativeRestriction:
+        type: "string"
+        enum:
+          - TO_TAKE
+          - TO_APPROVE

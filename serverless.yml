@@ -39,5 +39,6 @@ functions:
   - ${file(./sls/functions/careers_resource.yml)}
   - ${file(./sls/functions/programs_resource.yml)}
   - ${file(./sls/functions/subjects_resource.yml)}
+  - ${file(./sls/functions/correlatives_resource.yml)}
 
 

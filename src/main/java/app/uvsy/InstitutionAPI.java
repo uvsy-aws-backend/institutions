@@ -1,6 +1,7 @@
 package app.uvsy;
 
 import app.uvsy.controllers.career.CareerController;
+import app.uvsy.controllers.correlatives.CorrelativeController;
 import app.uvsy.controllers.institution.InstitutionController;
 import app.uvsy.controllers.program.ProgramController;
 import app.uvsy.controllers.subject.SubjectController;
@@ -16,5 +17,6 @@ public class InstitutionAPI extends ServerlessApiHandler {
         controllers.add(new CareerController());
         controllers.add(new ProgramController());
         controllers.add(new SubjectController());
+        controllers.add(new CorrelativeController());
     }
 }
