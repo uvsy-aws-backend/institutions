@@ -73,11 +73,6 @@ public class SubjectController {
 
     @Handler(method = HttpMethod.POST, resource = "/subjects/{id}/courses")
     public void createCourse(@PathParameter(name = "id") String subjectId, @BodyParameter CreateCoursePayload payload) {
-        subjectService.createCourse(subjectId, payload.getName());
+        subjectService.createCourse(subjectId, payload.getCommissionId());
     }
-
-/*    @Handler(method = HttpMethod.PUT, resource = "/subjects/{id}/courses")
-    public void updateCourse(@PathParameter(name = "id") String subjectId, @BodyParameter Course payload) {
-        subjectService.updateCourse(subjectId, payload);
-    }*/
 }

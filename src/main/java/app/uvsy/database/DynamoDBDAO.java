@@ -33,9 +33,37 @@ public class DynamoDBDAO<T> {
         return new DynamoDBDAO<>(clazz);
     }
 
-    public List<T> get(T object) {
+    public Optional<T> get(Object hashKey) {
+        try {
+            return Optional.ofNullable(getMapper().load(entity, hashKey));
+        } catch (Exception e) {
+            throw new DBException(e);
+        }
+    }
+
+    public Optional<T> get(Object hashKey, Object sortKey) {
+        try {
+            return Optional.ofNullable(getMapper().load(entity, hashKey, sortKey));
+        } catch (Exception e) {
+            throw new DBException(e);
+        }
+    }
+
+    public List<T> query(T object) {
         try {
             DynamoDBQueryExpression<T> query = new DynamoDBQueryExpression<T>().withHashKeyValues(object);
+            return getMapper().query(entity, query);
+        } catch (Exception e) {
+            throw new DBException(e);
+        }
+    }
+
+    public List<T> query(T object, String index) {
+        try {
+            DynamoDBQueryExpression<T> query = new DynamoDBQueryExpression<T>()
+                    .withHashKeyValues(object)
+                    .withConsistentRead(Boolean.FALSE)
+                    .withIndexName(index);
             return getMapper().query(entity, query);
         } catch (Exception e) {
             throw new DBException(e);
@@ -73,7 +101,7 @@ public class DynamoDBDAO<T> {
         }
     }
 
-    public void deleteCourse(T obj) {
+    public void delete(T obj) {
         try {
             getMapper().delete(obj);
         } catch (Exception e) {

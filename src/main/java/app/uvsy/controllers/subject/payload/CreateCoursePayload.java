@@ -5,10 +5,10 @@ import lombok.Getter;
 
 @Getter
 public class CreateCoursePayload {
-    private final String name;
+    private final String commissionId;
 
 
-    public CreateCoursePayload(@JsonProperty(value = "name", required = true) String name) {
-        this.name = name;
+    public CreateCoursePayload(@JsonProperty(value = "commissionId", required = true) String commissionId) {
+        this.commissionId = commissionId;
     }
 }

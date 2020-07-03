@@ -75,11 +75,3 @@ subjects_resource:
           parameters:
             paths:
               id: true
-    - http:
-        path: /subjects/{id}/courses
-        method: PUT
-        cors: true
-        request:
-          parameters:
-            paths:
-              id: true

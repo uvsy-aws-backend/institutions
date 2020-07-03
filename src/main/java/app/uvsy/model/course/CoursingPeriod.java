@@ -18,17 +18,17 @@ import java.util.List;
 @DynamoDBDocument
 public class CoursingPeriod {
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "schedules")
     private List<Schedule> schedules;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "professors")
     private List<Professor> professors;
 
     @DynamoDBTypeConvertedEnum
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "begin_month")
     private Month beginMonth;
 
     @DynamoDBTypeConvertedEnum
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "end_month")
     private Month endMonth;
 }

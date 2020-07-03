@@ -46,7 +46,8 @@ functions:
   - ${file(./sls/functions/subjects_resource.yml)}
   - ${file(./sls/functions/correlatives_resource.yml)}
   - ${file(./sls/functions/commissions_resource.yml)}
+  - ${file(./sls/functions/courses_resource.yml)}
 
 resources:
-  - ${file(./sls/resources/courses_dynamo_db_table.yml)}
+ - ${file(./sls/resources/courses_dynamo_db_table.yml)}
 

@@ -12,9 +12,9 @@ import lombok.ToString;
 @DynamoDBDocument
 public class Professor {
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "name")
     private String name;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "last_name")
     private String lastName;
 }

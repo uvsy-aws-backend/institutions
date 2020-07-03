@@ -16,15 +16,15 @@ import java.time.DayOfWeek;
 public class Schedule {
 
     @DynamoDBTypeConvertedEnum
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "day_of_week")
     private DayOfWeek dayOfWeek;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "begin_time")
     private int beginTime;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "end_time")
     private int endTime;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "classroom")
     private String classroom;
 }

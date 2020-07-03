@@ -16,7 +16,6 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -142,26 +141,16 @@ public class SubjectService {
         course.setSubjectId(subjectId);
 
         DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
-        return courseDAO.get(course);
+        return courseDAO.query(course, "SubjectIdIndex");
     }
 
-    public void createCourse(String subjectId, String name) {
+    public void createCourse(String subjectId, String commissionId) {
         Course course = new Course();
+        course.setCommissionId(commissionId);
         course.setSubjectId(subjectId);
-        course.setName(name);
-        course.setActive(Boolean.FALSE);
+        course.setActive(Boolean.TRUE);
 
         DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
         courseDAO.save(course);
     }
-
-/*    public void updateCourse(String subjectId, Course course) {
-        DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
-        courseDAO.update(course, new HashMap<String, String>(){
-            {
-                put("subject_id", course.getSubjectId());
-                put("course_id", course.getCourseId());
-            }
-        });
-    }*/
 }
