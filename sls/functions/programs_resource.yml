@@ -58,3 +58,19 @@ programs_resource:
           parameters:
             paths:
               id: true
+    - http:
+        path: /programs/{id}/commissions
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/commissions
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true

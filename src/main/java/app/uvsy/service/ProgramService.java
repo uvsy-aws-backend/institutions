@@ -1,7 +1,8 @@
 package app.uvsy.service;
 
 import app.uvsy.database.DBConnection;
-import app.uvsy.database.DBException;
+import app.uvsy.database.exceptions.DBException;
+import app.uvsy.model.Commission;
 import app.uvsy.model.Program;
 import app.uvsy.model.Subject;
 import app.uvsy.service.exceptions.RecordActiveException;
@@ -126,5 +127,55 @@ public class ProgramService {
             e.printStackTrace();
             throw new DBException(e);
         }
+    }
+
+    public List<Commission> getCommission(String programId) {
+        try (ConnectionSource conn = DBConnection.create()) {
+            Dao<Program, String> programDao = DaoManager.createDao(conn, Program.class);
+            boolean programExists = Optional.ofNullable(programDao.queryForId(programId)).isPresent();
+
+            if (programExists) {
+                Dao<Commission, String> commissionDao = DaoManager.createDao(conn, Commission.class);
+                return commissionDao.queryBuilder()
+                        .selectColumns()
+                        .where()
+                        .eq("program_id", programId)
+                        .query();
+            }
+            throw new RecordNotFoundException(programId);
+        } catch (SQLException | IOException e) {
+            // TODO: Add logger error
+            e.printStackTrace();
+            throw new DBException(e);
+        }
+
+    }
+
+    public void createCommission(String programId, String name, Integer level) {
+
+        try (ConnectionSource conn = DBConnection.create()) {
+
+            Dao<Program, String> programDao = DaoManager.createDao(conn, Program.class);
+            boolean programExists = Optional.ofNullable(programDao.queryForId(programId)).isPresent();
+
+            if (programExists) {
+
+                Commission commission = new Commission();
+                commission.setName(name);
+                commission.setLevel(level);
+                commission.setProgramId(programId);
+                commission.setActive(Boolean.TRUE);
+
+                Dao<Commission, String> commissionDao = DaoManager.createDao(conn, Commission.class);
+                commissionDao.create(commission);
+            } else {
+                throw new RecordNotFoundException(programId);
+            }
+        } catch (SQLException | IOException e) {
+            // TODO: Add logger error
+            e.printStackTrace();
+            throw new DBException(e);
+        }
+
     }
 }

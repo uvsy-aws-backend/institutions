@@ -1,7 +1,9 @@
 package app.uvsy.controllers.subject;
 
 import app.uvsy.controllers.subject.payload.CreateCorrelativePayload;
+import app.uvsy.controllers.subject.payload.CreateCoursePayload;
 import app.uvsy.controllers.subject.payload.UpdateSubjectPayload;
+import app.uvsy.model.Course;
 import app.uvsy.response.Response;
 import app.uvsy.service.SubjectService;
 import org.github.serverless.api.annotations.HttpMethod;
@@ -63,4 +65,19 @@ public class SubjectController {
                 payload.getCorrelativeCondition()
         );
     }
+
+    @Handler(method = HttpMethod.GET, resource = "/subjects/{id}/courses")
+    public Response getCourses(@PathParameter(name = "id") String subjectId) {
+        return Response.of(subjectService.getCourses(subjectId));
+    }
+
+    @Handler(method = HttpMethod.POST, resource = "/subjects/{id}/courses")
+    public void createCourse(@PathParameter(name = "id") String subjectId, @BodyParameter CreateCoursePayload payload) {
+        subjectService.createCourse(subjectId, payload.getName());
+    }
+
+/*    @Handler(method = HttpMethod.PUT, resource = "/subjects/{id}/courses")
+    public void updateCourse(@PathParameter(name = "id") String subjectId, @BodyParameter Course payload) {
+        subjectService.updateCourse(subjectId, payload);
+    }*/
 }

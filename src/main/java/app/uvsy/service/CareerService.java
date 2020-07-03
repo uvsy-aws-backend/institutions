@@ -1,7 +1,7 @@
 package app.uvsy.service;
 
 import app.uvsy.database.DBConnection;
-import app.uvsy.database.DBException;
+import app.uvsy.database.exceptions.DBException;
 import app.uvsy.model.Career;
 import app.uvsy.model.Program;
 import app.uvsy.service.exceptions.RecordActiveException;

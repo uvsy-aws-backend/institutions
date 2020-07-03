@@ -59,3 +59,27 @@ subjects_resource:
           parameters:
             paths:
               id: true
+    - http:
+        path: /subjects/{id}/courses
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/courses
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/courses
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true

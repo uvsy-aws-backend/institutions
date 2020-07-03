@@ -1,7 +1,7 @@
 package app.uvsy.service;
 
 import app.uvsy.database.DBConnection;
-import app.uvsy.database.DBException;
+import app.uvsy.database.exceptions.DBException;
 import app.uvsy.model.Correlative;
 import app.uvsy.model.CorrelativeCondition;
 import app.uvsy.model.CorrelativeRestriction;

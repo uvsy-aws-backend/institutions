@@ -1,5 +1,6 @@
 package app.uvsy.controllers.program;
 
+import app.uvsy.controllers.program.payload.CreateCommissionPayload;
 import app.uvsy.controllers.program.payload.CreateSubjectPayload;
 import app.uvsy.controllers.program.payload.UpdateProgramPayload;
 import app.uvsy.response.Response;
@@ -63,6 +64,20 @@ public class ProgramController {
                 payload.getHours(),
                 payload.getPoints(),
                 payload.getOptative()
+        );
+    }
+
+    @Handler(method = HttpMethod.GET, resource = "/programs/{id}/commissions")
+    public Response getCommissions(@PathParameter(name = "id") String programId) {
+        return Response.of(programService.getCommission(programId));
+    }
+
+    @Handler(method = HttpMethod.POST, resource = "/programs/{id}/commissions")
+    public void createCommission(@PathParameter(name = "id") String programId, @BodyParameter CreateCommissionPayload payload) {
+        programService.createCommission(
+                programId,
+                payload.getName(),
+                payload.getLevel()
         );
     }
 }

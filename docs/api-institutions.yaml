@@ -467,7 +467,61 @@ paths:
             $ref: "#/definitions/CreateSubjectPayload"
       responses:
         "204":
-          description: "Program updated"
+          description: "Subject created"
+        "500":
+          description: "Service error"
+  /programs/{id}/commissions:
+    get:
+      tags:
+        - "programs"
+      summary: "Get the commissions of a program"
+      operationId: "getProgramCommissions"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Commission"
+        "404":
+          description: "Program not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "programs"
+      summary: "Creates a commission"
+      operationId: "createCommission"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Commission"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateSubjectPayload"
+      responses:
+        "204":
+          description: "Commission created"
+        "404":
+          description: "Program not found for given id"
         "500":
           description: "Service error"
   /subjects/{id}:
@@ -601,7 +655,7 @@ paths:
           description: "Basic information to create a Correlative"
           required: true
           schema:
-            $ref: "#/definitions/CreateCorrelativePayload"
+            $ref: "#/definitions/CreateCommissionPayload"
       responses:
         "204":
           description: "Subject updated"
@@ -814,6 +868,29 @@ definitions:
       updatedAt:
         type: "integer"
         example: 1592092149591
+  Commission:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "2K3"
+      level:
+        type: "integer"
+        example: 2
+      programId:
+        type: "string"
+        format: "uuid"
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
   CreateInstitutionPayload:
     type: "object"
     properties:
@@ -906,6 +983,15 @@ definitions:
         example: 2
       optative:
         type: "boolean"
+  CreateCommissionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "2K3"
+      level:
+        type: "integer"
+        example: 2
   UpdateSubjectPayload:
     type: "object"
     properties:

@@ -1,10 +1,12 @@
 package app.uvsy.service;
 
 import app.uvsy.database.DBConnection;
-import app.uvsy.database.DBException;
+import app.uvsy.database.DynamoDBDAO;
+import app.uvsy.database.exceptions.DBException;
 import app.uvsy.model.Correlative;
 import app.uvsy.model.CorrelativeCondition;
 import app.uvsy.model.CorrelativeRestriction;
+import app.uvsy.model.Course;
 import app.uvsy.model.Subject;
 import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
@@ -14,6 +16,8 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public class SubjectService {
@@ -132,4 +136,32 @@ public class SubjectService {
             throw new DBException(e);
         }
     }
+
+    public List<Course> getCourses(String subjectId) {
+        Course course = new Course();
+        course.setSubjectId(subjectId);
+
+        DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
+        return courseDAO.get(course);
+    }
+
+    public void createCourse(String subjectId, String name) {
+        Course course = new Course();
+        course.setSubjectId(subjectId);
+        course.setName(name);
+        course.setActive(Boolean.FALSE);
+
+        DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
+        courseDAO.save(course);
+    }
+
+/*    public void updateCourse(String subjectId, Course course) {
+        DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
+        courseDAO.update(course, new HashMap<String, String>(){
+            {
+                put("subject_id", course.getSubjectId());
+                put("course_id", course.getCourseId());
+            }
+        });
+    }*/
 }
