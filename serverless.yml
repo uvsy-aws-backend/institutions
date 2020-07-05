@@ -40,13 +40,7 @@ custom:
     number: 3
 
 functions:
-  - ${file(./sls/functions/institutions_resource.yml)}
-  - ${file(./sls/functions/careers_resource.yml)}
-  - ${file(./sls/functions/programs_resource.yml)}
-  - ${file(./sls/functions/subjects_resource.yml)}
-  - ${file(./sls/functions/correlatives_resource.yml)}
-  - ${file(./sls/functions/commissions_resource.yml)}
-  - ${file(./sls/functions/courses_resource.yml)}
+  - ${file(./sls/functions/api-institutions.yml)}
 
 resources:
  - ${file(./sls/resources/courses_dynamo_db_table.yml)}
