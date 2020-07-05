@@ -3,7 +3,6 @@ package app.uvsy.controllers.subject;
 import app.uvsy.controllers.subject.payload.CreateCorrelativePayload;
 import app.uvsy.controllers.subject.payload.CreateCoursePayload;
 import app.uvsy.controllers.subject.payload.UpdateSubjectPayload;
-import app.uvsy.model.Course;
 import app.uvsy.response.Response;
 import app.uvsy.service.SubjectService;
 import org.github.serverless.api.annotations.HttpMethod;
