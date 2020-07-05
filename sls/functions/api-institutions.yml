@@ -1,0 +1,323 @@
+api-institutions:
+  name: ${self:provider.stage}-${self:service}
+  handler: app.uvsy.InstitutionAPI
+  environment:
+    DB_DRIVER: ${self:custom.dbDriver}
+    DB_PROTOCOL: ${self:custom.dbProtocol}
+    DB_PORT: ${self:custom.dbPort}
+    DB_NAME: ${self:custom.dbName}
+    DB_HOST: ${self:custom.dbHost}
+    DB_USERNAME: ${self:custom.dbUser}
+    DB_PASSWORD: ${self:custom.dbPassword}
+  events:
+    # Institutions
+    - http:
+        path: /institutions
+        method: GET
+        cors: true
+    - http:
+        path: /institutions
+        method: POST
+        cors: true
+    - http:
+        path: /institutions/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /institutions/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /institutions/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /institutions/{id}/activate
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /institutions/{id}/careers
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /institutions/{id}/careers
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    # Careers
+    - http:
+        path: /careers/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /careers/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /careers/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /careers/{id}/activate
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /careers/{id}/programs
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /careers/{id}/programs
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    # Programs
+    - http:
+        path: /programs/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/activate
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/subjects
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/subjects
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/commissions
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /programs/{id}/commissions
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    # Commissions
+    - http:
+        path: /commissions/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /commissions/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /commissions/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    # Subjects
+    - http:
+        path: /subjects/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/activate
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/correlatives
+        method: GET
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/correlatives
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/courses
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /subjects/{id}/courses
+        method: POST
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    # Correlatives
+    - http:
+        path: /correlatives/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /correlatives/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /correlatives/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    # Courses
+    - http:
+        path: /courses/{id}
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /courses/{id}
+        method: PUT
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /courses/{id}
+        method: DELETE
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
+

@@ -11,10 +11,14 @@ tags:
     description: "Manage careers information"
   - name: "programs"
     description: "Manage programs information"
+  - name: "commissions"
+    description: "Manage commissions information"
   - name: "subjects"
     description: "Manage subjects information"
   - name: "correlatives"
     description: "Manage correlatives information"
+  - name: "courses"
+    description: "Manage courses information"
 schemes:
   - "https"
 paths:
@@ -467,7 +471,127 @@ paths:
             $ref: "#/definitions/CreateSubjectPayload"
       responses:
         "204":
-          description: "Program updated"
+          description: "Subject created"
+        "500":
+          description: "Service error"
+  /programs/{id}/commissions:
+    get:
+      tags:
+        - "programs"
+      summary: "Get the commissions of a program"
+      operationId: "getProgramCommissions"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Commission"
+        "404":
+          description: "Program not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "programs"
+      summary: "Creates a commission"
+      operationId: "createCommission"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the program to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Commission"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateCommissionPayload"
+      responses:
+        "204":
+          description: "Commission created"
+        "404":
+          description: "Program not found for given id"
+        "500":
+          description: "Service error"
+  /commissions/{id}:
+    get:
+      tags:
+        - "commissions"
+      summary: "Get an specific commission"
+      operationId: "getComission"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the commission to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Commission"
+        "404":
+          description: "Commission not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "commissions"
+      summary: "Updates a comission"
+      operationId: "updateComission"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the comission to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Commission"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateCommissionPayload"
+      responses:
+        "204":
+          description: "Commission updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "commissions"
+      summary: "Deletes a commission"
+      operationId: "deleteCommission"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the comission to delete"
+          required: true
+      responses:
+        "204":
+          description: "Commission deleted"
         "500":
           description: "Service error"
   /subjects/{id}:
@@ -607,6 +731,58 @@ paths:
           description: "Subject updated"
         "500":
           description: "Service error"
+  /subjects/{id}/courses:
+    get:
+      tags:
+        - "subjects"
+      summary: "Get the courses of a subject"
+      operationId: "getSubjectCourses"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/Course"
+        "404":
+          description: "Subject not found for given id"
+        "500":
+          description: "Service error"
+    post:
+      tags:
+        - "subjects"
+      summary: "Creates a course"
+      operationId: "createCourse"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the subject to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to create a Course"
+          required: true
+          schema:
+            $ref: "#/definitions/CreateCoursePayload"
+      responses:
+        "204":
+          description: "Subject updated"
+        "500":
+          description: "Service error"
   /correlatives/{id}:
     get:
       tags:
@@ -673,6 +849,72 @@ paths:
           description: "Correlative deleted"
         "500":
           description: "Service error"
+  /courses/{id}:
+    get:
+      tags:
+        - "courses"
+      summary: "Get an specific course"
+      operationId: "getCourse"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the course to query"
+          required: true
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "object"
+            properties:
+              data:
+                $ref: "#/definitions/Course"
+        "404":
+          description: "Course not found for given id"
+        "500":
+          description: "Service error"
+    put:
+      tags:
+        - "courses"
+      summary: "Updates a course"
+      operationId: "updateCourse"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the course to update"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Basic information to update a Course"
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateCoursePayload"
+      responses:
+        "204":
+          description: "Course updated"
+        "500":
+          description: "Service error"
+    delete:
+      tags:
+        - "courses"
+      summary: "Deletes a course"
+      operationId: "deleteCourse"
+      parameters:
+        - in: "path"
+          type: "string"
+          name: "id"
+          description: "The id of the course to delete"
+          required: true
+      responses:
+        "204":
+          description: "Course deleted"
+        "500":
+          description: "Service error"
 
 
 definitions:
@@ -687,7 +929,7 @@ definitions:
         example: "Universidad Tecnologica Nacional"
       codename:
         type: "string"
-        example: FRC
+        example: "FRC"
       active:
         type: "boolean"
       createdAt:
@@ -707,7 +949,7 @@ definitions:
         example: "Ingenieria en sistemas"
       codename:
         type: "string"
-        example: FRC
+        example: "FRC"
       active:
         type: "boolean"
       createdAt:
@@ -749,6 +991,26 @@ definitions:
         type: "integer"
         example: 1592092149591
       deactivatedAt:
+        type: "integer"
+        example: 1592092149591
+  Commission:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      name:
+        type: "string"
+        example: "2K3"
+      level:
+        type: "integer"
+        example: 2
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
         type: "integer"
         example: 1592092149591
   Subject:
@@ -801,19 +1063,116 @@ definitions:
       correlativeCondition:
         type: "string"
         enum:
-          - APPROVED
-          - REGULAR
+          - "APPROVED"
+          - "REGULAR"
       correlativeRestriction:
         type: "string"
         enum:
-          - TO_TAKE
-          - TO_APPROVE
+          - "TO_TAKE"
+          - "TO_APPROVE"
       createdAt:
         type: "integer"
         example: 1592092149591
       updatedAt:
         type: "integer"
         example: 1592092149591
+  Course:
+    type: "object"
+    properties:
+      courseId:
+        type: "string"
+        format: "uuid"
+      commissionId:
+        type: "string"
+        format: "uuid"
+      subjectId:
+        type: "string"
+        format: "uuid"
+      periods:
+        type: "array"
+        items:
+          $ref: "#/definitions/CoursingPeriod"
+      active:
+        type: "boolean"
+      createdAt:
+        type: "integer"
+        example: 1592092149591
+      updatedAt:
+        type: "integer"
+        example: 1592092149591
+  CoursingPeriod:
+    type: "object"
+    properties:
+      schedules:
+        type: "array"
+        items:
+          $ref: "#/definitions/Schedule"
+      professors:
+        type: "array"
+        items:
+          $ref: "#/definitions/Professor"
+      beginMonth:
+        type: "string"
+        enum:
+          - "JANUARY"
+          - "FEBRUARY"
+          - "MARCH"
+          - "APRIL"
+          - "MAY"
+          - "JUNE"
+          - "JULY"
+          - "AUGUST"
+          - "SEPTEMBER"
+          - "OCTOBER"
+          - "NOVEMBER"
+          - "DECEMBER"
+      endMonth:
+        type: "string"
+        enum:
+          - "JANUARY"
+          - "FEBRUARY"
+          - "MARCH"
+          - "APRIL"
+          - "MAY"
+          - "JUNE"
+          - "JULY"
+          - "AUGUST"
+          - "SEPTEMBER"
+          - "OCTOBER"
+          - "NOVEMBER"
+          - "DECEMBER"
+
+  Schedule:
+    type: "object"
+    properties:
+      dayOfWeek:
+        type: "string"
+        enum:
+          - "MONDAY"
+          - "TUESDAY"
+          - "WEDNESDAY"
+          - "THURSDAY"
+          - "FRIDAY"
+          - "SATURDAY"
+          - "SUNDAY"
+      beginTime:
+        type: "integer"
+        example: 2215
+      endTime:
+        type: "integer"
+        example: 2245
+      classroom:
+        type: "string"
+        example: "Labsis 4"
+  Professor:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Pedro"
+      lastName:
+        type: "string"
+        example: "Sanchez"
   CreateInstitutionPayload:
     type: "object"
     properties:
@@ -822,7 +1181,7 @@ definitions:
         example: "Universidad Tecnologica Nacional"
       codename:
         type: "string"
-        example: FRC
+        example: "FRC"
   UpdateInstitutionPayload:
     type: "object"
     properties:
@@ -831,7 +1190,7 @@ definitions:
         example: "Ingenieria en sistemas"
       codename:
         type: "string"
-        example: FRC
+        example: "FRC"
   CreateCareerPayload:
     type: "object"
     properties:
@@ -840,7 +1199,7 @@ definitions:
         example: "Ingenieria en sistemas"
       codename:
         type: "string"
-        example: FRC
+        example: "FRC"
   UpdateCareerPayload:
     type: "object"
     properties:
@@ -886,6 +1245,24 @@ definitions:
       points:
         type: "integer"
         example: 25
+  CreateCommissionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "2K3"
+      level:
+        type: "integer"
+        example: 2
+  UpdateCommissionPayload:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "2K3"
+      level:
+        type: "integer"
+        example: 1
   CreateSubjectPayload:
     type: "object"
     properties:
@@ -935,13 +1312,13 @@ definitions:
       correlativeCondition:
         type: "string"
         enum:
-          - APPROVED
-          - REGULAR
+          - "APPROVED"
+          - "REGULAR"
       correlativeRestriction:
         type: "string"
         enum:
-          - TO_TAKE
-          - TO_APPROVE
+          - "TO_TAKE"
+          - "TO_APPROVE"
   UpdateCorrelativePayload:
     type: "object"
     properties:
@@ -951,10 +1328,25 @@ definitions:
       correlativeCondition:
         type: "string"
         enum:
-          - APPROVED
-          - REGULAR
+          - "APPROVED"
+          - "REGULAR"
       correlativeRestriction:
         type: "string"
         enum:
-          - TO_TAKE
-          - TO_APPROVE
+          - "TO_TAKE"
+          - "TO_APPROVE"
+  CreateCoursePayload:
+    type: "object"
+    properties:
+      commissionId:
+        type: "string"
+        format: "uuid"
+  UpdateCoursePayload:
+    type: "object"
+    properties:
+      periods:
+        type: "array"
+        items:
+          $ref: "#/definitions/CoursingPeriod"
+      active:
+        type: "boolean"

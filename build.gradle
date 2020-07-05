@@ -50,20 +50,19 @@ def DB_URL = "${DB_DRIVER}:${DB_PROTOCOL}://${DB_HOST}:${DB_PORT}/${DB_NAME}"
 dependencies {
 
     // Logging
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.8.0-beta4'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
 
-    // PostgreSQL
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
-
-    // ORMLite
-    compile group: 'com.j256.ormlite', name: 'ormlite-jdbc', version: '5.0'
+    // Databases
+    compile group: 'org.postgresql', name: 'postgresql', version: postgresqlVersion
+    compile group: 'com.j256.ormlite', name: 'ormlite-jdbc', version: ormliteVersion
+    compile "com.github.universy-code:java-dynamo-client:${javaDynamoClientVersion}"
 
     // Lombok
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
+    compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
 
     // Serverless API
-    compile "com.github.GonzaloSaad:java-serverless-api:ef8798d"
+    compile "com.github.GonzaloSaad:java-serverless-api:${serverlessAPIVersion}"
 
 }
 

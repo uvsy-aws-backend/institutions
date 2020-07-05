@@ -1,6 +1,7 @@
 package app.uvsy.controllers.subject;
 
 import app.uvsy.controllers.subject.payload.CreateCorrelativePayload;
+import app.uvsy.controllers.subject.payload.CreateCoursePayload;
 import app.uvsy.controllers.subject.payload.UpdateSubjectPayload;
 import app.uvsy.response.Response;
 import app.uvsy.service.SubjectService;
@@ -62,5 +63,15 @@ public class SubjectController {
                 payload.getCorrelativeRestriction(),
                 payload.getCorrelativeCondition()
         );
+    }
+
+    @Handler(method = HttpMethod.GET, resource = "/subjects/{id}/courses")
+    public Response getCourses(@PathParameter(name = "id") String subjectId) {
+        return Response.of(subjectService.getCourses(subjectId));
+    }
+
+    @Handler(method = HttpMethod.POST, resource = "/subjects/{id}/courses")
+    public void createCourse(@PathParameter(name = "id") String subjectId, @BodyParameter CreateCoursePayload payload) {
+        subjectService.createCourse(subjectId, payload.getCommissionId());
     }
 }
