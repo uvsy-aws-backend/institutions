@@ -3,6 +3,8 @@ package app.uvsy.controllers.institution.payload;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @Getter
 public class CreateCareerPayload {
 
@@ -10,8 +12,8 @@ public class CreateCareerPayload {
     private final String codename;
 
     public CreateCareerPayload(@JsonProperty(value = "name", required = true) String name,
-                               @JsonProperty(value = "codename", required = true) String codename) {
+                               @JsonProperty(value = "codename") String codename) {
         this.name = name;
-        this.codename = codename;
+        this.codename = Optional.ofNullable(codename).orElse("");
     }
 }

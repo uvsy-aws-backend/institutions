@@ -32,7 +32,7 @@ public class ProgramService {
         }
     }
 
-    public void updateProgram(String programId, String name, Date validFrom, Date validTo, Integer hours, Integer points) {
+    public void updateProgram(String programId, String name, Date validFrom, Date validTo, Integer hours, Integer points, Integer amountOfSubjects) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
             Program program = Optional.ofNullable(programsDao.queryForId(programId))
@@ -43,6 +43,7 @@ public class ProgramService {
             program.setValidTo(validTo);
             program.setHours(hours);
             program.setPoints(points);
+            program.setAmountOfSubjects(points);
 
             programsDao.update(program);
         } catch (SQLException | IOException e) {

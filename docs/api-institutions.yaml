@@ -1182,6 +1182,7 @@ definitions:
       codename:
         type: "string"
         example: "FRC"
+        default: ""
   UpdateInstitutionPayload:
     type: "object"
     properties:
@@ -1199,7 +1200,8 @@ definitions:
         example: "Ingenieria en sistemas"
       codename:
         type: "string"
-        example: "FRC"
+        example: "K"
+        default: ""
   UpdateCareerPayload:
     type: "object"
     properties:
@@ -1224,9 +1226,15 @@ definitions:
       hours:
         type: "integer"
         example: 65
+        default: 0
       points:
         type: "integer"
         example: 25
+        default: 0
+      amountOfSubjects:
+        type: "integer"
+        example: 10
+        default: 0
   UpdateProgramPayload:
     type: "object"
     properties:
@@ -1245,6 +1253,9 @@ definitions:
       points:
         type: "integer"
         example: 25
+      amountOfSubjects:
+        type: "integer"
+        example: 10
   CreateCommissionPayload:
     type: "object"
     properties:
@@ -1272,17 +1283,21 @@ definitions:
       codename:
         type: "string"
         example: "DSI"
+        default: ""
       level:
         type: "integer"
         example: 2
       hours:
         type: "integer"
         example: 2
+        default: 0
       points:
         type: "integer"
         example: 2
+        default: 0
       optative:
         type: "boolean"
+        default: false
   UpdateSubjectPayload:
     type: "object"
     properties:

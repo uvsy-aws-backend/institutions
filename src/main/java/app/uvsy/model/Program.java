@@ -39,6 +39,9 @@ public class Program {
     @DatabaseField(columnName = "points")
     private Integer points;
 
+    @DatabaseField(columnName = "amount_of_subjects")
+    private Integer amountOfSubjects;
+
     @DatabaseField(columnName = "active")
     private Boolean active;
 

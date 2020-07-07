@@ -35,7 +35,8 @@ public class ProgramController {
                 payload.getValidFrom(),
                 payload.getValidTo(),
                 payload.getHours(),
-                payload.getPoints()
+                payload.getPoints(),
+                payload.getAmountOfSubjects()
         );
     }
 
