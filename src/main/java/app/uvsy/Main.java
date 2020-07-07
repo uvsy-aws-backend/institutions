@@ -5,7 +5,6 @@ import org.github.serverless.api.ServerlessApiHandler;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintStream;
 
 public class Main {
     public static void main(String[] args) {

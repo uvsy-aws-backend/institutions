@@ -103,7 +103,7 @@ public class CareerService {
         }
     }
 
-    public void createProgram(String careerId, String name, Date validFrom, Date validTo, Integer hours, Integer points) {
+    public void createProgram(String careerId, String name, Date validFrom, Date validTo, Integer hours, Integer points, Integer amountOfSubjects) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Career, String> careerDao = DaoManager.createDao(conn, Career.class);
             boolean careerExists = Optional.ofNullable(careerDao.queryForId(careerId)).isPresent();
@@ -118,6 +118,7 @@ public class CareerService {
                 program.setValidTo(validTo);
                 program.setHours(hours);
                 program.setPoints(points);
+                program.setAmountOfSubjects(amountOfSubjects);
 
                 Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
                 programsDao.create(program);

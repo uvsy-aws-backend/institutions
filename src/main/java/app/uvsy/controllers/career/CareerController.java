@@ -54,7 +54,8 @@ public class CareerController {
                 payload.getValidFrom(),
                 payload.getValidTo(),
                 payload.getHours(),
-                payload.getPoints()
+                payload.getPoints(),
+                payload.getAmountOfSubjects()
         );
     }
 }
