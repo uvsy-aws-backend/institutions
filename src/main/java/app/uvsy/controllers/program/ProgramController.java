@@ -22,12 +22,12 @@ public class ProgramController {
         this.programService = programService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/programs/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/programs/{id}")
     public Response getProgram(@PathParameter(name = "id") String programId) {
         return Response.of(programService.getProgram(programId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/programs/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/programs/{id}")
     public void updateProgram(@PathParameter(name = "id") String programId, @BodyParameter UpdateProgramPayload payload) {
         programService.updateProgram(
                 programId,
@@ -40,22 +40,22 @@ public class ProgramController {
         );
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/programs/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/programs/{id}")
     public void deleteProgram(@PathParameter(name = "id") String programId) {
         programService.deleteProgram(programId);
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/programs/{id}/activate")
+    @Handler(method = HttpMethod.POST, resource = "/v1/programs/{id}/activate")
     public void activateProgram(@PathParameter(name = "id") String programId) {
         programService.activateProgram(programId);
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/programs/{id}/subjects")
+    @Handler(method = HttpMethod.GET, resource = "/v1/programs/{id}/subjects")
     public Response getSubjects(@PathParameter(name = "id") String programId) {
         return Response.of(programService.getSubjects(programId));
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/programs/{id}/subjects")
+    @Handler(method = HttpMethod.POST, resource = "/v1/programs/{id}/subjects")
     public void createSubject(@PathParameter(name = "id") String programId, @BodyParameter CreateSubjectPayload payload) {
         programService.createSubject(
                 programId,
@@ -68,12 +68,12 @@ public class ProgramController {
         );
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/programs/{id}/commissions")
+    @Handler(method = HttpMethod.GET, resource = "/v1/programs/{id}/commissions")
     public Response getCommissions(@PathParameter(name = "id") String programId) {
         return Response.of(programService.getCommission(programId));
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/programs/{id}/commissions")
+    @Handler(method = HttpMethod.POST, resource = "/v1/programs/{id}/commissions")
     public void createCommission(@PathParameter(name = "id") String programId, @BodyParameter CreateCommissionPayload payload) {
         programService.createCommission(
                 programId,

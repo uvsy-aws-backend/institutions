@@ -18,12 +18,24 @@ provider:
 
 plugins:
   - serverless-offline
+  - serverless-domain-manager
+  - serverless-prune-plugin
 
 package:
   artifact: build/distributions/${self:service}-1.0.zip
 
 
 custom:
+
+  # Domain name configuration
+  customDomain:
+    domainName: "${self:provider.stage}-api-institutions.compute.universy.app"
+    stage: ${self:provider.stage}
+    endpointType: "regional"
+    hostedZoneId: ${ssm:/all/route53/zones/compute/id~true}
+    certificateArn: ${ssm:/all/acm/cert/compute/arn~true}
+    createRoute53Record: true
+    apiType: REST
 
   # Database Configuration
   dbDriver: jdbc

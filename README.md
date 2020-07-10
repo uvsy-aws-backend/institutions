@@ -25,6 +25,21 @@ API that manages all institutions related information. This covers:
     make init
 
 &nbsp;
+### Create domain
+
+    make domain
+    
+> This action should be performed once, only when the service is first created, before deploy.
+> 
+> e.g.
+> 
+> `make init`
+>
+> `make domain`
+>
+> `make deploy`
+ 
+&nbsp;
 ### Build
 
     make build

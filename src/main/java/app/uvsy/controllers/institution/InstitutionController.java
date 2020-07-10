@@ -22,42 +22,42 @@ public class InstitutionController {
         this.institutionService = institutionService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/institutions")
+    @Handler(method = HttpMethod.GET, resource = "/v1/institutions")
     public Response getAllInstitutions() {
         return Response.of(institutionService.getAll());
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/institutions")
+    @Handler(method = HttpMethod.POST, resource = "/v1/institutions")
     public void createInstitution(@BodyParameter CreateInstitutionPayload body) {
         institutionService.createInstitution(body.getName(), body.getCodename());
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/institutions/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/institutions/{id}")
     public Response getInstitution(@PathParameter(name = "id") String institutionId) {
         return Response.of(institutionService.getInstitution(institutionId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/institutions/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/institutions/{id}")
     public void updateInstitution(@PathParameter(name = "id") String institutionId, @BodyParameter UpdateInstitutionPayload body) {
         institutionService.updateInstitution(institutionId, body.getCodename());
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/institutions/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/institutions/{id}")
     public void deleteInstitution(@PathParameter(name = "id") String institutionId) {
         institutionService.deleteInstitution(institutionId);
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/institutions/{id}/activate")
+    @Handler(method = HttpMethod.POST, resource = "/v1/institutions/{id}/activate")
     public void activateInstitution(@PathParameter(name = "id") String institutionId) {
         institutionService.activateInstitution(institutionId);
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/institutions/{id}/careers")
+    @Handler(method = HttpMethod.POST, resource = "/v1/institutions/{id}/careers")
     public void createCareer(@PathParameter(name = "id") String institutionId, @BodyParameter CreateCareerPayload careerPayload) {
         institutionService.createCareer(institutionId, careerPayload.getName(), careerPayload.getCodename());
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/institutions/{id}/careers")
+    @Handler(method = HttpMethod.GET, resource = "/v1/institutions/{id}/careers")
     public Response getCareers(@PathParameter(name = "id") String institutionId) {
         return Response.of(institutionService.getCareers(institutionId));
     }

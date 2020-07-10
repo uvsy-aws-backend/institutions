@@ -20,12 +20,12 @@ public class CorrelativeController {
         this.correlativeService = correlativeService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/correlatives/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/correlatives/{id}")
     public Response getCorrelative(@PathParameter(name = "id") String correlativeId) {
         return Response.of(correlativeService.getCorrelative(correlativeId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/correlatives/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/correlatives/{id}")
     public void updateCorrelative(@PathParameter(name = "id") String correlativeId, @BodyParameter UpdateCorrelativePayload payload) {
         correlativeService.updateCorrelative(
                 correlativeId,
@@ -35,7 +35,7 @@ public class CorrelativeController {
         );
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/correlatives/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/correlatives/{id}")
     public void deleteCorrelative(@PathParameter(name = "id") String correlativeId) {
         correlativeService.deleteCorrelative(correlativeId);
     }
