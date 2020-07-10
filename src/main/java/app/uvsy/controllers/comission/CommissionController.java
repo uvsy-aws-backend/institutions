@@ -20,12 +20,12 @@ public class CommissionController {
         this.commissionService = commissionService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/commissions/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/commissions/{id}")
     public Response getCommission(@PathParameter(name = "id") String commissionId) {
         return Response.of(commissionService.getCommission(commissionId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/commissions/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/commissions/{id}")
     public void updateCommission(@PathParameter(name = "id") String commissionId, @BodyParameter UpdateCommissionPayload payload) {
         commissionService.updateCommission(
                 commissionId,
@@ -34,7 +34,7 @@ public class CommissionController {
         );
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/commissions/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/commissions/{id}")
     public void deleteCommission(@PathParameter(name = "id") String commissionId) {
         commissionService.deleteCommission(commissionId);
     }

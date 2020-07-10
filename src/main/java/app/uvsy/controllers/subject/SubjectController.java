@@ -22,12 +22,12 @@ public class SubjectController {
         this.subjectService = subjectService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/subjects/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/subjects/{id}")
     public Response getSubject(@PathParameter(name = "id") String subjectId) {
         return Response.of(subjectService.getSubject(subjectId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/subjects/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/subjects/{id}")
     public void updateSubject(@PathParameter(name = "id") String subjectId, @BodyParameter UpdateSubjectPayload payload) {
         subjectService.updateSubject(
                 subjectId,
@@ -40,22 +40,22 @@ public class SubjectController {
         );
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/subjects/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/subjects/{id}")
     public void deleteSubject(@PathParameter(name = "id") String subjectId) {
         subjectService.deleteSubject(subjectId);
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/subjects/{id}/activate")
+    @Handler(method = HttpMethod.POST, resource = "/v1/subjects/{id}/activate")
     public void activateSubject(@PathParameter(name = "id") String subjectId) {
         subjectService.activateSubject(subjectId);
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/subjects/{id}/correlatives")
+    @Handler(method = HttpMethod.GET, resource = "/v1/subjects/{id}/correlatives")
     public Response getCorrelatives(@PathParameter(name = "id") String subjectId) {
         return Response.of(subjectService.getCorrelatives(subjectId));
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/subjects/{id}/correlatives")
+    @Handler(method = HttpMethod.POST, resource = "/v1/subjects/{id}/correlatives")
     public void createCorrelative(@PathParameter(name = "id") String subjectId, @BodyParameter CreateCorrelativePayload payload) {
         subjectService.createCorrelative(
                 subjectId,
@@ -65,12 +65,12 @@ public class SubjectController {
         );
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/subjects/{id}/courses")
+    @Handler(method = HttpMethod.GET, resource = "/v1/subjects/{id}/courses")
     public Response getCourses(@PathParameter(name = "id") String subjectId) {
         return Response.of(subjectService.getCourses(subjectId));
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/subjects/{id}/courses")
+    @Handler(method = HttpMethod.POST, resource = "/v1/subjects/{id}/courses")
     public void createCourse(@PathParameter(name = "id") String subjectId, @BodyParameter CreateCoursePayload payload) {
         subjectService.createCourse(subjectId, payload.getCommissionId());
     }

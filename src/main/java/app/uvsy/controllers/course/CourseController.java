@@ -20,12 +20,12 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/courses/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/courses/{id}")
     public Response getCourse(@PathParameter(name = "id") String courseId) {
         return Response.of(courseService.getCourse(courseId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/courses/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/courses/{id}")
     public void updateCourse(@PathParameter(name = "id") String courseId, @BodyParameter UpdateCoursePayload payload) {
         courseService.updateCourse(
                 courseId,
@@ -34,7 +34,7 @@ public class CourseController {
         );
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/courses/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/courses/{id}")
     public void deleteCourse(@PathParameter(name = "id") String courseId) {
         courseService.deleteCourse(courseId);
     }

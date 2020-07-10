@@ -21,32 +21,32 @@ public class CareerController {
         this.careerService = careerService;
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/careers/{id}")
+    @Handler(method = HttpMethod.GET, resource = "/v1/careers/{id}")
     public Response getCareer(@PathParameter(name = "id") String careerId) {
         return Response.of(careerService.getCareer(careerId));
     }
 
-    @Handler(method = HttpMethod.PUT, resource = "/careers/{id}")
+    @Handler(method = HttpMethod.PUT, resource = "/v1/careers/{id}")
     public void updateCareer(@PathParameter(name = "id") String careerId, @BodyParameter UpdateCareerPayload body) {
         careerService.updateCareer(careerId, body.getName(), body.getCodename());
     }
 
-    @Handler(method = HttpMethod.DELETE, resource = "/careers/{id}")
+    @Handler(method = HttpMethod.DELETE, resource = "/v1/careers/{id}")
     public void deleteCareer(@PathParameter(name = "id") String careerId) {
         careerService.deleteCareer(careerId);
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/careers/{id}/activate")
+    @Handler(method = HttpMethod.POST, resource = "/v1/careers/{id}/activate")
     public void activateCareer(@PathParameter(name = "id") String careerId) {
         careerService.activateCareer(careerId);
     }
 
-    @Handler(method = HttpMethod.GET, resource = "/careers/{id}/programs")
+    @Handler(method = HttpMethod.GET, resource = "/v1/careers/{id}/programs")
     public Response getPrograms(@PathParameter(name = "id") String careerId) {
         return Response.of(careerService.getPrograms(careerId));
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/careers/{id}/programs")
+    @Handler(method = HttpMethod.POST, resource = "/v1/careers/{id}/programs")
     public void createProgram(@PathParameter(name = "id") String careerId, @BodyParameter CreateProgramPayload payload) {
         careerService.createProgram(
                 careerId,
