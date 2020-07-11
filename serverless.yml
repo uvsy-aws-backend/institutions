@@ -29,7 +29,7 @@ custom:
 
   # Domain name configuration
   customDomain:
-    domainName: "${self:provider.stage}-api-institutions.compute.universy.app"
+    domainName: institutions-api-${self:provider.stage}.compute.universy.app
     stage: ${self:provider.stage}
     endpointType: "regional"
     hostedZoneId: ${ssm:/all/route53/zones/compute/id~true}

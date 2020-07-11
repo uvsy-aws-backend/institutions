@@ -69,7 +69,7 @@ build: clean-build
 	@./gradlew build
 
 domain:
-	@ehco "Creating domain for service"
+	@echo "Creating domain for service"
 	@npx serverless create_domain
 
 deploy: build

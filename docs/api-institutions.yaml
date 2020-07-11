@@ -19,7 +19,7 @@ tags:
   - name: courses
     description: Manage courses information
 servers:
-  - url: https://{stage}-api-institutions.compute.universy.app/v1
+  - url: https://institutions-api-{stage}.compute.universy.app/v1
     variables:
       stage:
         default: dev2
