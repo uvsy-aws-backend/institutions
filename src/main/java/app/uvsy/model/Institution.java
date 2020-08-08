@@ -44,17 +44,4 @@ public class Institution {
     public void activate() {
         this.active = Boolean.TRUE;
     }
-
-    @Override
-    public String toString() {
-        return "Institution{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", codename='" + codename + '\'' +
-                ", active=" + active +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", careers=" + careers +
-                '}';
-    }
 }

@@ -50,18 +50,4 @@ public class Career {
     public void activate() {
         this.active = Boolean.TRUE;
     }
-
-    @Override
-    public String toString() {
-        return "Career{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", codename='" + codename + '\'' +
-                ", active=" + active +
-                ", institutionId='" + institutionId + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", programs=" + programs +
-                '}';
-    }
 }

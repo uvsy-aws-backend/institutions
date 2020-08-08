@@ -62,20 +62,4 @@ public class Subject {
     public void activate() {
         this.active = Boolean.TRUE;
     }
-
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", codename='" + codename + '\'' +
-                ", programId='" + programId + '\'' +
-                ", hours=" + hours +
-                ", points=" + points +
-                ", active=" + active +
-                ", optative=" + optative +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

@@ -56,6 +56,4 @@ public class Course {
     public void activate() {
         this.active = Boolean.TRUE;
     }
-
-
 }
