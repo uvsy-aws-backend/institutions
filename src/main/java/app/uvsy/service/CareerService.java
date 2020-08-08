@@ -161,13 +161,7 @@ public class CareerService {
                 program.setPoints(points);
                 program.setAmountOfSubjects(amountOfSubjects);
 
-                ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
-
-                if (this.getPrograms(careerId, false)
-                        .stream()
-                        .anyMatch(overlapFilter::apply)) {
-                    throw new RecordConflictException();
-                }
+                checkOverlaps(careerId, program);
 
                 Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
                 programsDao.create(program);
@@ -178,6 +172,16 @@ public class CareerService {
             // TODO: Add logger error
             e.printStackTrace();
             throw new DBException(e);
+        }
+    }
+
+    private void checkOverlaps(String careerId, Program program) {
+        ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
+
+        if (this.getPrograms(careerId, false)
+                .stream()
+                .anyMatch(overlapFilter::apply)) {
+            throw new RecordConflictException();
         }
     }
 }
