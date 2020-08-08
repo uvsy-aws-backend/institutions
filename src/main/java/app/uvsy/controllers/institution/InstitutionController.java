@@ -9,6 +9,9 @@ import org.github.serverless.api.annotations.HttpMethod;
 import org.github.serverless.api.annotations.handler.Handler;
 import org.github.serverless.api.annotations.parameters.BodyParameter;
 import org.github.serverless.api.annotations.parameters.PathParameter;
+import org.github.serverless.api.annotations.parameters.QueryParameter;
+
+import java.util.Optional;
 
 public class InstitutionController {
 
@@ -23,8 +26,8 @@ public class InstitutionController {
     }
 
     @Handler(method = HttpMethod.GET, resource = "/v1/institutions")
-    public Response getAllInstitutions() {
-        return Response.of(institutionService.getAll());
+    public Response getAllInstitutions(@QueryParameter(name = "only_active", required = false) Boolean onlyActive) {
+        return Response.of(institutionService.getAll(Optional.ofNullable(onlyActive).orElse(Boolean.FALSE)));
     }
 
     @Handler(method = HttpMethod.POST, resource = "/v1/institutions")
@@ -38,7 +41,8 @@ public class InstitutionController {
     }
 
     @Handler(method = HttpMethod.PUT, resource = "/v1/institutions/{id}")
-    public void updateInstitution(@PathParameter(name = "id") String institutionId, @BodyParameter UpdateInstitutionPayload body) {
+    public void updateInstitution(@PathParameter(name = "id") String institutionId,
+                                  @BodyParameter UpdateInstitutionPayload body) {
         institutionService.updateInstitution(institutionId, body.getCodename());
     }
 
@@ -53,12 +57,18 @@ public class InstitutionController {
     }
 
     @Handler(method = HttpMethod.POST, resource = "/v1/institutions/{id}/careers")
-    public void createCareer(@PathParameter(name = "id") String institutionId, @BodyParameter CreateCareerPayload careerPayload) {
+    public void createCareer(@PathParameter(name = "id") String institutionId,
+                             @BodyParameter CreateCareerPayload careerPayload) {
         institutionService.createCareer(institutionId, careerPayload.getName(), careerPayload.getCodename());
     }
 
     @Handler(method = HttpMethod.GET, resource = "/v1/institutions/{id}/careers")
-    public Response getCareers(@PathParameter(name = "id") String institutionId) {
-        return Response.of(institutionService.getCareers(institutionId));
+    public Response getCareers(@PathParameter(name = "id") String institutionId,
+                               @QueryParameter(name = "only_active", required = false) Boolean onlyActive) {
+
+        return Response.of(institutionService.getCareers(
+                institutionId,
+                Optional.ofNullable(onlyActive).orElse(Boolean.FALSE)
+        ));
     }
 }

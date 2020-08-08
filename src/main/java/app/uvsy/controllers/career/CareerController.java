@@ -8,6 +8,9 @@ import org.github.serverless.api.annotations.HttpMethod;
 import org.github.serverless.api.annotations.handler.Handler;
 import org.github.serverless.api.annotations.parameters.BodyParameter;
 import org.github.serverless.api.annotations.parameters.PathParameter;
+import org.github.serverless.api.annotations.parameters.QueryParameter;
+
+import java.util.Optional;
 
 public class CareerController {
 
@@ -42,8 +45,20 @@ public class CareerController {
     }
 
     @Handler(method = HttpMethod.GET, resource = "/v1/careers/{id}/programs")
-    public Response getPrograms(@PathParameter(name = "id") String careerId) {
-        return Response.of(careerService.getPrograms(careerId));
+    public Response getPrograms(@PathParameter(name = "id") String careerId,
+                                @QueryParameter(name = "only_active", required = false) Boolean onlyActive,
+                                @QueryParameter(name = "year", required = false) Integer year) {
+        if (year != null) {
+            return Response.of(careerService.getProgramsForYear(
+                    careerId,
+                    Optional.ofNullable(onlyActive).orElse(Boolean.FALSE),
+                    year
+            ));
+        }
+        return Response.of(careerService.getPrograms(
+                careerId,
+                Optional.ofNullable(onlyActive).orElse(Boolean.FALSE)
+        ));
     }
 
     @Handler(method = HttpMethod.POST, resource = "/v1/careers/{id}/programs")
@@ -51,8 +66,8 @@ public class CareerController {
         careerService.createProgram(
                 careerId,
                 payload.getName(),
-                payload.getValidFrom(),
-                payload.getValidTo(),
+                payload.getYearFrom(),
+                payload.getYearTo(),
                 payload.getHours(),
                 payload.getPoints(),
                 payload.getAmountOfSubjects()

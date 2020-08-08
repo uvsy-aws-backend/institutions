@@ -32,8 +32,8 @@ public class ProgramController {
         programService.updateProgram(
                 programId,
                 payload.getName(),
-                payload.getValidFrom(),
-                payload.getValidTo(),
+                payload.getYearFrom(),
+                payload.getYearTo(),
                 payload.getHours(),
                 payload.getPoints(),
                 payload.getAmountOfSubjects()
