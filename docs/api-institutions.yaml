@@ -993,12 +993,12 @@ components:
         careerId:
           type: string
           format: uuid
-        validFrom:
+        yearFrom:
           type: integer
-          example: 1588896000000
-        validTo:
+          example: 2019
+        yearTo:
           type: integer
-          example: 1588982400000
+          example: 2020
         hours:
           type: integer
           example: 65
@@ -1239,12 +1239,12 @@ components:
         name:
           type: string
           example: Plan 2008
-        validFrom:
+        yearFrom:
           type: string
-          example: 2020-05-08
-        validTo:
+          example: 2020
+        yearTo:
           type: string
-          example: 2020-05-09
+          example: 2021
         hours:
           type: integer
           example: 65
@@ -1263,12 +1263,12 @@ components:
         name:
           type: string
           example: Plan 2008
-        validFrom:
+        yearFrom:
           type: string
-          example: 2020-05-08
-        validTo:
+          example: 2020
+        yearTo:
           type: string
-          example: 2020-05-09
+          example: 2021
         hours:
           type: integer
           example: 65

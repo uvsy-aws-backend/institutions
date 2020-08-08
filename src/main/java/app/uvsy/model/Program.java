@@ -3,15 +3,12 @@ package app.uvsy.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Optional;
 
-@Getter
-@Setter
+@Data
 @DatabaseTable(tableName = "program")
 public class Program {
     @DatabaseField(columnName = "id", id = true, readOnly = true)
@@ -27,11 +24,15 @@ public class Program {
     @DatabaseField(foreign = true, readOnly = true)
     private Career career;
 
-    @DatabaseField(columnName = "valid_from")
-    private Date validFrom;
+    @DatabaseField(columnName = "year_from")
+    private Integer yearFrom;
 
-    @DatabaseField(columnName = "valid_to")
-    private Date validTo;
+    @DatabaseField(columnName = "year_to")
+    private Integer yearTo;
+
+    @JsonIgnore
+    @DatabaseField(columnName = "south_hemisphere")
+    private Boolean southHemisphere;
 
     @DatabaseField(columnName = "hours")
     private Integer hours;
@@ -39,6 +40,8 @@ public class Program {
     @DatabaseField(columnName = "points")
     private Integer points;
 
+    // TODO: Remove this field
+    @Deprecated
     @DatabaseField(columnName = "amount_of_subjects")
     private Integer amountOfSubjects;
 
@@ -51,9 +54,13 @@ public class Program {
     @DatabaseField(columnName = "updated_at", readOnly = true)
     private Timestamp updatedAt;
 
-    @DatabaseField(columnName = "deactivated_at", readOnly = true)
-    private Timestamp deactivatedAt;
+    public boolean isSouthHemisphere() {
+        return Optional.ofNullable(southHemisphere).orElse(Boolean.FALSE);
+    }
 
+    public boolean hasYearTo() {
+        return Optional.ofNullable(yearTo).isPresent();
+    }
 
     public boolean isActive() {
         return Optional.ofNullable(active).orElse(Boolean.FALSE);
@@ -61,22 +68,5 @@ public class Program {
 
     public void activate() {
         this.active = Boolean.TRUE;
-    }
-
-    @Override
-    public String toString() {
-        return "Program{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", careerId='" + careerId + '\'' +
-                ", validFrom=" + validFrom +
-                ", validTo=" + validTo +
-                ", hours=" + hours +
-                ", points=" + points +
-                ", active=" + active +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", deactivatedAt=" + deactivatedAt +
-                '}';
     }
 }

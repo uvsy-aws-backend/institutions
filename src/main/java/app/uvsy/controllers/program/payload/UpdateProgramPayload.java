@@ -1,32 +1,32 @@
 package app.uvsy.controllers.program.payload;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
+import lombok.Data;
 
-import java.util.Date;
+import java.util.Optional;
 
-@Getter
+@Data
 public class UpdateProgramPayload {
 
     private final String name;
-    private final Date validFrom;
-    private final Date validTo;
+    private final Integer yearFrom;
+    private final Integer yearTo;
     private final Integer hours;
     private final Integer points;
     private final Integer amountOfSubjects;
 
 
     public UpdateProgramPayload(@JsonProperty(value = "name", required = true) String name,
-                                @JsonProperty(value = "validFrom", required = true) Date validFrom,
-                                @JsonProperty(value = "validTo", required = true) Date validTo,
-                                @JsonProperty(value = "hours", required = true) Integer hours,
-                                @JsonProperty(value = "points", required = true) Integer points,
-                                @JsonProperty(value = "amountOfSubjects", required = true) Integer amountOfSubjects) {
+                                @JsonProperty(value = "yearFrom", required = true) Integer yearFrom,
+                                @JsonProperty(value = "yearTo", required = true) Integer yearTo,
+                                @JsonProperty(value = "hours") Integer hours,
+                                @JsonProperty(value = "points") Integer points,
+                                @JsonProperty(value = "amountOfSubjects") Integer amountOfSubjects) {
         this.name = name;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
-        this.hours = hours;
-        this.points = points;
-        this.amountOfSubjects = amountOfSubjects;
+        this.yearFrom = yearFrom;
+        this.yearTo = yearTo;
+        this.hours = Optional.ofNullable(hours).orElse(0);
+        this.points = Optional.ofNullable(points).orElse(0);
+        this.amountOfSubjects = Optional.ofNullable(amountOfSubjects).orElse(0);
     }
 }

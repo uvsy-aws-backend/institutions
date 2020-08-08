@@ -8,6 +8,7 @@ import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.IOException;
@@ -17,10 +18,16 @@ import java.util.Optional;
 
 public class InstitutionService {
 
-
-    public List<Institution> getAll() {
+    public List<Institution> getAll(boolean onlyActive) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Institution, String> institutionsDao = DaoManager.createDao(conn, Institution.class);
+            if (onlyActive) {
+                return institutionsDao.queryBuilder()
+                        .selectColumns()
+                        .where()
+                        .eq("active", true)
+                        .query();
+            }
             return institutionsDao.queryForAll();
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
@@ -124,14 +131,21 @@ public class InstitutionService {
         }
     }
 
-    public List<Career> getCareers(String institutionId) {
+    public List<Career> getCareers(String institutionId, Boolean onlyActive) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Career, String> careersDao = DaoManager.createDao(conn, Career.class);
-            return careersDao.queryBuilder()
+
+            Where<Career, String> queryBuilder = careersDao.queryBuilder()
                     .selectColumns()
                     .where()
-                    .eq("institution_id", institutionId)
-                    .query();
+                    .eq("institution_id", institutionId);
+
+            if (onlyActive) {
+                queryBuilder = queryBuilder.and().eq("active", true);
+
+            }
+
+            return queryBuilder.query();
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();

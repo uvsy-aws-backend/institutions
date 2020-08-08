@@ -6,19 +6,19 @@ import app.uvsy.model.Commission;
 import app.uvsy.model.Program;
 import app.uvsy.model.Subject;
 import app.uvsy.service.exceptions.RecordActiveException;
+import app.uvsy.service.exceptions.RecordConflictException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
+import app.uvsy.service.filters.program.ProgramOverlapFilter;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public class ProgramService {
-
 
     public Program getProgram(String programId) {
         try (ConnectionSource conn = DBConnection.create()) {
@@ -32,18 +32,30 @@ public class ProgramService {
         }
     }
 
-    public void updateProgram(String programId, String name, Date validFrom, Date validTo, Integer hours, Integer points, Integer amountOfSubjects) {
+    public void updateProgram(String programId, String name, Integer yearFrom, Integer yearTo,
+                              Integer hours, Integer points, Integer amountOfSubjects) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
             Program program = Optional.ofNullable(programsDao.queryForId(programId))
                     .orElseThrow(() -> new RecordNotFoundException(programId));
 
             program.setName(name);
-            program.setValidFrom(validFrom);
-            program.setValidTo(validTo);
+            program.setYearFrom(yearFrom);
+            program.setYearTo(yearTo);
             program.setHours(hours);
             program.setPoints(points);
-            program.setAmountOfSubjects(points);
+            program.setAmountOfSubjects(amountOfSubjects);
+
+            List<Program> programs = programsDao.queryBuilder()
+                    .selectColumns()
+                    .where()
+                    .eq("career_id", program.getCareerId())
+                    .query();
+
+            ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
+            if (programs.stream().anyMatch(overlapFilter::apply)) {
+                throw new RecordConflictException();
+            }
 
             programsDao.update(program);
         } catch (SQLException | IOException e) {
@@ -52,7 +64,6 @@ public class ProgramService {
             throw new DBException(e);
         }
     }
-
 
     public void activateProgram(String programId) {
         try (ConnectionSource conn = DBConnection.create()) {
