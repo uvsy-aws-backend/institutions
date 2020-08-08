@@ -3,13 +3,11 @@ package app.uvsy.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+@Data
 @DatabaseTable(tableName = "commission")
 public class Commission {
 
