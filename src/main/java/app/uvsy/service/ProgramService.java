@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class ProgramService {
 
@@ -35,34 +36,57 @@ public class ProgramService {
     public void updateProgram(String programId, String name, Integer yearFrom, Integer yearTo,
                               Integer hours, Integer points, Integer amountOfSubjects) {
         try (ConnectionSource conn = DBConnection.create()) {
+
             Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
+
             Program program = Optional.ofNullable(programsDao.queryForId(programId))
                     .orElseThrow(() -> new RecordNotFoundException(programId));
 
-            program.setName(name);
-            program.setYearFrom(yearFrom);
-            program.setYearTo(yearTo);
-            program.setHours(hours);
-            program.setPoints(points);
-            program.setAmountOfSubjects(amountOfSubjects);
-
-            List<Program> programs = programsDao.queryBuilder()
-                    .selectColumns()
-                    .where()
-                    .eq("career_id", program.getCareerId())
-                    .query();
-
-            ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
-            if (programs.stream().anyMatch(overlapFilter::apply)) {
-                throw new RecordConflictException();
+            // TODO: Check that yearfrom < yearTo with a proper exception.
+            if (validUpdate(program, name, yearFrom, hours, points)) {
+                if (validDateRange(programsDao, program)) {
+                    program.setName(name);
+                    program.setYearFrom(yearFrom);
+                    program.setYearTo(yearTo);
+                    program.setHours(hours);
+                    program.setPoints(points);
+                    program.setAmountOfSubjects(amountOfSubjects);
+                    programsDao.update(program);
+                } else {
+                    throw new RecordConflictException();
+                }
+            } else {
+                throw new RecordActiveException(programId);
             }
-
-            programsDao.update(program);
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();
             throw new DBException(e);
         }
+    }
+
+    private boolean validUpdate(Program program, String name, Integer yearFrom, Integer hours, Integer points) {
+        return !program.isActive()
+                || (equal(program::getName, name)
+                && equal(program::getYearFrom, yearFrom)
+                && equal(program::getHours, hours)
+                && equal(program::getPoints, points));
+
+    }
+
+    private boolean validDateRange(Dao<Program, String> programsDao, Program program) throws SQLException {
+        List<Program> programs = programsDao.queryBuilder()
+                .selectColumns()
+                .where()
+                .eq("career_id", program.getCareerId())
+                .query();
+
+        ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
+        return programs.stream().noneMatch(overlapFilter::apply);
+    }
+
+    private <T> boolean equal(Supplier<T> getter, T value) {
+        return getter.get() != null && getter.get().equals(value);
     }
 
     public void activateProgram(String programId) {

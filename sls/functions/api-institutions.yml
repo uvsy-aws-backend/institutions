@@ -93,13 +93,15 @@ api-institutions:
             paths:
               id: true
     - http:
-        path: /v1/careers/{id}/activate
+        path: /v1/careers/{id}/status
         method: POST
         cors: true
         request:
           parameters:
             paths:
               id: true
+            querystrings:
+              active: true
     - http:
         path: /v1/careers/{id}/programs
         method: POST

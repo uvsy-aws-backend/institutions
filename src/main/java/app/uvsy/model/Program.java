@@ -42,6 +42,7 @@ public class Program {
 
     // TODO: Remove this field
     @Deprecated
+    @JsonIgnore
     @DatabaseField(columnName = "amount_of_subjects")
     private Integer amountOfSubjects;
 
