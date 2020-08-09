@@ -49,14 +49,12 @@ public class CareerService {
         }
     }
 
-    public void activateCareer(String careerId) {
+    public void updateCareerActive(String careerId, Boolean active) {
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Career, String> careersDao = DaoManager.createDao(conn, Career.class);
             Career career = careersDao.queryForId(careerId);
-            if (!career.isActive()) {
-                career.activate();
-                careersDao.update(career);
-            }
+            career.setActive(active);
+            careersDao.update(career);
         } catch (SQLException | IOException e) {
             // TODO: Add logger error
             e.printStackTrace();

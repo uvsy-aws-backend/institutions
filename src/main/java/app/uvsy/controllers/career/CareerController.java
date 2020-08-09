@@ -39,9 +39,10 @@ public class CareerController {
         careerService.deleteCareer(careerId);
     }
 
-    @Handler(method = HttpMethod.POST, resource = "/v1/careers/{id}/activate")
-    public void activateCareer(@PathParameter(name = "id") String careerId) {
-        careerService.activateCareer(careerId);
+    @Handler(method = HttpMethod.POST, resource = "/v1/careers/{id}/status")
+    public void activateCareer(@PathParameter(name = "id") String careerId,
+                               @QueryParameter(name = "active") Boolean active) {
+        careerService.updateCareerActive(careerId, active);
     }
 
     @Handler(method = HttpMethod.GET, resource = "/v1/careers/{id}/programs")
