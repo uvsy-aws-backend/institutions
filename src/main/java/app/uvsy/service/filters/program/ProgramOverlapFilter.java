@@ -15,12 +15,12 @@ public class ProgramOverlapFilter implements Function<Program, Boolean> {
     @Override
     public Boolean apply(Program program) {
         if (program.hasYearTo() && refProgram.hasYearTo()) {
-            return program.getYearFrom() < refProgram.getYearTo() &&
-                    program.getYearTo() > refProgram.getYearFrom();
+            return program.getYearFrom() <= refProgram.getYearTo() &&
+                    program.getYearTo() >= refProgram.getYearFrom();
         } else if (program.hasYearTo()) {
-            return program.getYearTo() > refProgram.getYearFrom();
+            return program.getYearTo() >= refProgram.getYearFrom();
         } else if (refProgram.hasYearTo()) {
-            return refProgram.getYearTo() > program.getYearFrom();
+            return refProgram.getYearTo() >= program.getYearFrom();
         }
         return Boolean.TRUE;
     }

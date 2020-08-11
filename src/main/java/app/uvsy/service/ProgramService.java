@@ -44,13 +44,14 @@ public class ProgramService {
 
             // TODO: Check that yearfrom < yearTo with a proper exception.
             if (validUpdate(program, name, yearFrom, hours, points)) {
+                program.setName(name);
+                program.setYearFrom(yearFrom);
+                program.setYearTo(yearTo);
+                program.setHours(hours);
+                program.setPoints(points);
+                program.setAmountOfSubjects(amountOfSubjects);
+
                 if (validDateRange(programsDao, program)) {
-                    program.setName(name);
-                    program.setYearFrom(yearFrom);
-                    program.setYearTo(yearTo);
-                    program.setHours(hours);
-                    program.setPoints(points);
-                    program.setAmountOfSubjects(amountOfSubjects);
                     programsDao.update(program);
                 } else {
                     throw new RecordConflictException();
@@ -79,9 +80,13 @@ public class ProgramService {
                 .selectColumns()
                 .where()
                 .eq("career_id", program.getCareerId())
+                .and()
+                .not()
+                .eq("id", program.getId())
                 .query();
 
         ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
+        System.out.println(programs);
         return programs.stream().noneMatch(overlapFilter::apply);
     }
 
