@@ -6,6 +6,7 @@ import app.uvsy.controllers.correlatives.CorrelativeController;
 import app.uvsy.controllers.course.CourseController;
 import app.uvsy.controllers.institution.InstitutionController;
 import app.uvsy.controllers.program.ProgramController;
+import app.uvsy.controllers.query.QueryController;
 import app.uvsy.controllers.subject.SubjectController;
 import org.github.serverless.api.ServerlessApiHandler;
 
@@ -22,5 +23,6 @@ public class InstitutionAPI extends ServerlessApiHandler {
         controllers.add(new CorrelativeController());
         controllers.add(new CommissionController());
         controllers.add(new CourseController());
+        controllers.add(new QueryController());
     }
 }
