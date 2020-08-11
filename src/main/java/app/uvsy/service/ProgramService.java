@@ -79,6 +79,9 @@ public class ProgramService {
                 .selectColumns()
                 .where()
                 .eq("career_id", program.getCareerId())
+                .and()
+                .not()
+                .eq("id", program.getId())
                 .query();
 
         ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
