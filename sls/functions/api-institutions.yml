@@ -322,4 +322,12 @@ api-institutions:
           parameters:
             paths:
               id: true
-
+    # Queries
+    - http:
+        path: /v1/query/programs/info
+        method: GET
+        cors: true
+        request:
+          parameters:
+            queryStrings:
+              programIds: true
