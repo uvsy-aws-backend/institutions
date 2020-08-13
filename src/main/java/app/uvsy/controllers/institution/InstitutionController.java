@@ -43,7 +43,11 @@ public class InstitutionController {
     @Handler(method = HttpMethod.PUT, resource = "/v1/institutions/{id}")
     public void updateInstitution(@PathParameter(name = "id") String institutionId,
                                   @BodyParameter UpdateInstitutionPayload body) {
-        institutionService.updateInstitution(institutionId, body.getCodename());
+        institutionService.updateInstitution(
+                institutionId,
+                body.getName(),
+                body.getCodename()
+        );
     }
 
     @Handler(method = HttpMethod.DELETE, resource = "/v1/institutions/{id}")

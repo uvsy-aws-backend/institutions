@@ -65,13 +65,14 @@ public class InstitutionService {
         }
     }
 
-    public void updateInstitution(String institutionId, String codename) {
+    public void updateInstitution(String institutionId, String name, String codename) {
 
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Institution, String> institutionsDao = DaoManager.createDao(conn, Institution.class);
             Institution institution = Optional.ofNullable(institutionsDao.queryForId(institutionId))
                     .orElseThrow(() -> new RecordNotFoundException(institutionId));
 
+            institution.setName(name);
             institution.setCodename(codename);
             institutionsDao.update(institution);
         } catch (SQLException | IOException e) {
