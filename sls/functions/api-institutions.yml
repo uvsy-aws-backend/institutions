@@ -191,6 +191,14 @@ api-institutions:
           parameters:
             paths:
               id: true
+    - http:
+        path: /v1/programs/{id}/report
+        method: GET
+        cors: true
+        request:
+          parameters:
+            paths:
+              id: true
     # Commissions
     - http:
         path: /v1/commissions/{id}
@@ -251,6 +259,13 @@ api-institutions:
               id: true
     - http:
         path: /v1/subjects/{id}/correlatives
+        method: GET
+        request:
+          parameters:
+            paths:
+              id: true
+    - http:
+        path: /v1/subjects/{id}/report
         method: GET
         request:
           parameters:

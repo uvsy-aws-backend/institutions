@@ -22,13 +22,17 @@ public class RatingsAPI {
         this.client = new APIClient(host);
     }
 
-    public Optional<SubjectRatingQueryResult> postSubjectQuery(List<String> subjectsId) throws APIClientException {
-        Map<String, String> params = Collections.singletonMap("onlyRating", "true");
+    public Optional<SubjectRatingQueryResult> postSubjectQuery(List<String> subjectsId, boolean onlyRating) throws APIClientException {
+        Map<String, String> params = Collections.singletonMap("onlyRating", Boolean.toString(onlyRating));
         SubjectRatingQueryRequest request = new SubjectRatingQueryRequest(subjectsId);
         return client.post(SUBJECT_RATING_RESOURCE,
                 SubjectRatingQueryResultResponse.class,
                 params,
                 request
         ).map(SubjectRatingQueryResultResponse::getData);
+    }
+
+    public Optional<SubjectRatingQueryResult> postSubjectQuery(List<String> subjectsId) throws APIClientException {
+        return postSubjectQuery(subjectsId, true);
     }
 }
