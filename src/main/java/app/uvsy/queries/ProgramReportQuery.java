@@ -102,6 +102,7 @@ public class ProgramReportQuery implements Query<ProgramReport> {
                 .map(s -> new SubjectStats(
                         s.getId(),
                         s.getName(),
+                        s.getLevel(),
                         subjectIdRating.getOrDefault(s.getId(), 0.0),
                         s.getOptative()
                 ))
