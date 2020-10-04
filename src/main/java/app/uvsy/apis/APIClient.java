@@ -5,7 +5,6 @@ import app.uvsy.apis.model.ApiError;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -13,7 +12,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
@@ -41,7 +39,7 @@ public class APIClient {
 
 
     private <T> Optional<T> request(HttpRequestBase request, Class<T> clazz) throws APIClientException {
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()){
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             CloseableHttpResponse response = httpClient.execute(request);
 
             int statusCode = response.getStatusLine().getStatusCode();

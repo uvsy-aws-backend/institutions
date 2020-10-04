@@ -5,7 +5,6 @@ import app.uvsy.database.exceptions.DBException;
 import app.uvsy.model.Career;
 import app.uvsy.model.Institution;
 import app.uvsy.model.reports.institution.InstitutionReport;
-import app.uvsy.model.reports.institution.ProgramStats;
 import app.uvsy.queries.InstitutionReportQuery;
 import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
