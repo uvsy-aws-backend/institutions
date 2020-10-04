@@ -4,6 +4,8 @@ import app.uvsy.database.DBConnection;
 import app.uvsy.database.exceptions.DBException;
 import app.uvsy.model.Career;
 import app.uvsy.model.Institution;
+import app.uvsy.model.reports.institution.InstitutionReport;
+import app.uvsy.queries.InstitutionReportQuery;
 import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
 import com.j256.ormlite.dao.Dao;
@@ -152,5 +154,9 @@ public class InstitutionService {
             e.printStackTrace();
             throw new DBException(e);
         }
+    }
+
+    public InstitutionReport getReport(String institutionId) {
+        return new InstitutionReportQuery(institutionId).execute();
     }
 }

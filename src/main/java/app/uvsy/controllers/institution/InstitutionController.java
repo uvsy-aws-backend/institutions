@@ -75,4 +75,11 @@ public class InstitutionController {
                 Optional.ofNullable(onlyActive).orElse(Boolean.FALSE)
         ));
     }
+
+    @Handler(method = HttpMethod.GET, resource = "/v1/institutions/{id}/report")
+    public Response getInstitutionReport(@PathParameter(name = "id") String institutionId)  {
+        return Response.of(institutionService.getReport(
+                institutionId
+        ));
+    }
 }

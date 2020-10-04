@@ -8,6 +8,8 @@ import app.uvsy.model.CorrelativeCondition;
 import app.uvsy.model.CorrelativeRestriction;
 import app.uvsy.model.Course;
 import app.uvsy.model.Subject;
+import app.uvsy.model.reports.subject.SubjectReport;
+import app.uvsy.queries.SubjectReportQuery;
 import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
 import com.j256.ormlite.dao.Dao;
@@ -152,5 +154,9 @@ public class SubjectService {
 
         DynamoDBDAO<Course> courseDAO = DynamoDBDAO.createFor(Course.class);
         courseDAO.save(course);
+    }
+
+    public SubjectReport getReport(String subjectId) {
+        return new SubjectReportQuery(subjectId).execute();
     }
 }

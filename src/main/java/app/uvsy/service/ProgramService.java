@@ -5,6 +5,9 @@ import app.uvsy.database.exceptions.DBException;
 import app.uvsy.model.Commission;
 import app.uvsy.model.Program;
 import app.uvsy.model.Subject;
+import app.uvsy.model.reports.program.ProgramReport;
+import app.uvsy.queries.InstitutionReportQuery;
+import app.uvsy.queries.ProgramReportQuery;
 import app.uvsy.service.exceptions.RecordActiveException;
 import app.uvsy.service.exceptions.RecordConflictException;
 import app.uvsy.service.exceptions.RecordNotFoundException;
@@ -218,5 +221,9 @@ public class ProgramService {
             throw new DBException(e);
         }
 
+    }
+
+    public ProgramReport getProgramReport(String programId) {
+        return new ProgramReportQuery(programId).execute();
     }
 }

@@ -3,6 +3,7 @@ package app.uvsy.controllers.program;
 import app.uvsy.controllers.program.payload.CreateCommissionPayload;
 import app.uvsy.controllers.program.payload.CreateSubjectPayload;
 import app.uvsy.controllers.program.payload.UpdateProgramPayload;
+import app.uvsy.model.reports.program.ProgramReport;
 import app.uvsy.response.Response;
 import app.uvsy.service.ProgramService;
 import org.github.serverless.api.annotations.HttpMethod;
@@ -80,5 +81,10 @@ public class ProgramController {
                 payload.getName(),
                 payload.getLevel()
         );
+    }
+
+    @Handler(method = HttpMethod.GET, resource = "/v1/programs/{id}/report")
+    public Response getProgramReport(@PathParameter(name = "id") String programId) {
+        return Response.of(programService.getProgramReport(programId));
     }
 }

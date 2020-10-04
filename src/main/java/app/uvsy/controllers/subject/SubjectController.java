@@ -74,4 +74,10 @@ public class SubjectController {
     public void createCourse(@PathParameter(name = "id") String subjectId, @BodyParameter CreateCoursePayload payload) {
         subjectService.createCourse(subjectId, payload.getCommissionId());
     }
+
+    @Handler(method = HttpMethod.GET, resource = "/v1/subjects/{id}/report")
+    public Response getReport(@PathParameter(name = "id") String subjectId) {
+        return Response.of(subjectService.getReport(subjectId));
+    }
+
 }

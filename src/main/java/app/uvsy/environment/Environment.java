@@ -8,28 +8,23 @@ public class Environment {
 
 
     public static String getDBDriver() {
-        return Optional.ofNullable(System.getenv("DB_DRIVER"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_DRIVER"));
+        return getString("DB_DRIVER");
     }
 
     public static String getDBProtocol() {
-        return Optional.ofNullable(System.getenv("DB_PROTOCOL"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_PROTOCOL"));
+        return getString("DB_PROTOCOL");
     }
 
     public static String getDBPort() {
-        return Optional.ofNullable(System.getenv("DB_PORT"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_PORT"));
+        return getString("DB_PORT");
     }
 
     public static String getDBName() {
-        return Optional.ofNullable(System.getenv("DB_NAME"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_NAME"));
+        return getString("DB_NAME");
     }
 
     public static String getDBHost() {
-        return Optional.ofNullable(System.getenv("DB_HOST"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_HOST"));
+        return getString("DB_HOST");
     }
 
     public static String getDBURL() {
@@ -45,12 +40,19 @@ public class Environment {
 
 
     public static String getDBUsername() {
-        return Optional.ofNullable(System.getenv("DB_USERNAME"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_PASSWORD"));
+        return getString("DB_USERNAME");
     }
 
     public static String getDBPassword() {
-        return Optional.ofNullable(System.getenv("DB_PASSWORD"))
-                .orElseThrow(() -> new CorruptEnvironmentException("DB_PASSWORD"));
+        return getString("DB_PASSWORD");
+    }
+
+    public static String getStage() {
+        return getString("STAGE");
+    }
+
+    private static String getString(String variableName) {
+        return Optional.ofNullable(System.getenv(variableName))
+                .orElseThrow(() -> new CorruptEnvironmentException(variableName));
     }
 }
