@@ -2,8 +2,8 @@ package app.uvsy.queries;
 
 import app.uvsy.apis.exceptions.APIClientException;
 import app.uvsy.apis.ratings.RatingsAPI;
-import app.uvsy.apis.ratings.model.SubjectRating;
-import app.uvsy.apis.ratings.model.SubjectRatingQueryResult;
+import app.uvsy.apis.ratings.model.subject.SubjectRating;
+import app.uvsy.apis.ratings.model.subject.SubjectRatingQueryResult;
 import app.uvsy.database.DBConnection;
 import app.uvsy.database.exceptions.DBException;
 import app.uvsy.environment.Environment;
@@ -64,9 +64,7 @@ public class ProgramReportQuery implements Query<ProgramReport> {
                     subjects.stream()
                             .map(Subject::getId)
                             .filter(Objects::nonNull)
-                            .collect(Collectors.toList()),
-                    false
-            );
+                            .collect(Collectors.toList()));
 
             double programRating = queryResult
                     .map(SubjectRatingQueryResult::getRating)

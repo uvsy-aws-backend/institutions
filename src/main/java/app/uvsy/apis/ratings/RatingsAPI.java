@@ -2,8 +2,11 @@ package app.uvsy.apis.ratings;
 
 import app.uvsy.apis.APIClient;
 import app.uvsy.apis.exceptions.APIClientException;
-import app.uvsy.apis.ratings.model.SubjectRatingQueryRequest;
-import app.uvsy.apis.ratings.model.SubjectRatingQueryResult;
+import app.uvsy.apis.ratings.model.course.CourseRatingQueryRequest;
+import app.uvsy.apis.ratings.model.course.CourseRatingQueryResult;
+import app.uvsy.apis.ratings.model.subject.SubjectRatingQueryRequest;
+import app.uvsy.apis.ratings.model.subject.SubjectRatingQueryResult;
+import app.uvsy.apis.ratings.responses.CourseRatingQueryResultResponse;
 import app.uvsy.apis.ratings.responses.SubjectRatingQueryResultResponse;
 
 import java.util.Collections;
@@ -14,6 +17,7 @@ import java.util.Optional;
 public class RatingsAPI {
 
     private static final String SUBJECT_RATING_RESOURCE = "/v1/ratings/subjects/query";
+    private static final String COURSES_RATING_RESOURCE = "/v1/ratings/courses/query";
 
     private final APIClient client;
 
@@ -33,6 +37,20 @@ public class RatingsAPI {
     }
 
     public Optional<SubjectRatingQueryResult> postSubjectQuery(List<String> subjectsId) throws APIClientException {
-        return postSubjectQuery(subjectsId, true);
+        return postSubjectQuery(subjectsId, false);
+    }
+
+    public Optional<CourseRatingQueryResult> postCoursesQuery(List<String> coursesId, boolean onlyRating) throws APIClientException {
+        Map<String, String> params = Collections.singletonMap("onlyRating", Boolean.toString(onlyRating));
+        CourseRatingQueryRequest request = new CourseRatingQueryRequest(coursesId);
+        return client.post(COURSES_RATING_RESOURCE,
+                CourseRatingQueryResultResponse.class,
+                params,
+                request
+        ).map(CourseRatingQueryResultResponse::getData);
+    }
+
+    public Optional<CourseRatingQueryResult> postCoursesQuery(List<String> coursesId) throws APIClientException {
+        return postCoursesQuery(coursesId, false);
     }
 }

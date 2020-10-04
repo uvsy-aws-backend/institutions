@@ -2,7 +2,7 @@ package app.uvsy.queries;
 
 import app.uvsy.apis.exceptions.APIClientException;
 import app.uvsy.apis.ratings.RatingsAPI;
-import app.uvsy.apis.ratings.model.SubjectRatingQueryResult;
+import app.uvsy.apis.ratings.model.subject.SubjectRatingQueryResult;
 import app.uvsy.database.DBConnection;
 import app.uvsy.database.exceptions.DBException;
 import app.uvsy.environment.Environment;
@@ -98,10 +98,11 @@ public class InstitutionReportQuery implements Query<InstitutionReport> {
             List<Subject> subjects = fetchSubjects(conn, p);
 
             double rating = ratingsAPI.postSubjectQuery(subjects
-                    .stream()
-                    .map(Subject::getId)
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList()))
+                            .stream()
+                            .map(Subject::getId)
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toList()),
+                    true)
                     .map(SubjectRatingQueryResult::getRating)
                     .orElse(0.0);
 

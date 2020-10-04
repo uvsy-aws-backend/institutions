@@ -49,6 +49,7 @@ public class APIClient {
 
             if (statusCode >= HttpURLConnection.HTTP_BAD_REQUEST) {
                 ApiError apiError = objectMapper.readValue(entity.getContent(), ApiError.class);
+                System.out.println(apiError);
                 throw APIClientException.from(statusCode, apiError);
             }
 

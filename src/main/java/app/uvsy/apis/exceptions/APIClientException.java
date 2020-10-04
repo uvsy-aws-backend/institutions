@@ -4,6 +4,8 @@ import app.uvsy.apis.model.ApiError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
+import java.util.Optional;
+
 @Getter
 public class APIClientException extends Exception {
 
@@ -28,7 +30,9 @@ public class APIClientException extends Exception {
         // Some values here will remain hardcoded until a new version
         // contract is established
         String code = "api_error";
-        String detail = apiError.getMessage();
+        String detail = Optional.ofNullable(apiError)
+                .map(ApiError::getMessage)
+                .orElse(String.format("Error %d", statusCode));
         String source = "";
         return new APIClientException(statusCode, code, detail, source);
     }

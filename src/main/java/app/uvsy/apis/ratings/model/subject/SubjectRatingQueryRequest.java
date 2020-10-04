@@ -1,4 +1,4 @@
-package app.uvsy.apis.ratings.model;
+package app.uvsy.apis.ratings.model.subject;
 
 import lombok.Getter;
 
