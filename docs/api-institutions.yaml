@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: API for institution related operations.
   version: 0.0.1
-  title: api-institutions
+  title: InsitutionsAPI
 tags:
   - name: institutions
     description: Manage institutions information
