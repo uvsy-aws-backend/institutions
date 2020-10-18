@@ -59,6 +59,10 @@ clean-build:
 	@echo "Removing build artifacts..."
 	@./gradlew clean
 
+clean-domain:
+	@echo "Deleting domain for service"
+	@npx serverless delete_domain --stage $(STAGE)
+
 clean-out:
 	@echo "Removing compiled artifacts..."
 	@rm -rf out
@@ -70,7 +74,7 @@ build: clean-build
 
 domain:
 	@echo "Creating domain for service"
-	@npx serverless create_domain
+	@npx serverless create_domain --stage $(STAGE)
 
 deploy: build
 	@echo "Deploying to '$(STAGE)' with profile '$(AWS_PROFILE)'..."

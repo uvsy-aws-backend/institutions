@@ -1,5 +1,5 @@
-api-institutions:
-  name: ${self:provider.stage}-${self:service}
+api:
+  name: ${self:provider.stage}-${self:service}-api
   handler: app.uvsy.InstitutionAPI
   environment:
     DB_DRIVER: ${self:custom.dbDriver}
