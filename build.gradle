@@ -40,11 +40,11 @@ targetCompatibility = 1.8
 def STAGE = System.getenv("AWS_STAGE") ?: "local"
 def DB_DRIVER = "jdbc"
 def DB_PROTOCOL = "postgresql"
-def DB_HOST = STAGE == "local" ? "localhost" : fetchSSM("/${STAGE}/${rootProject.name}/database/host")
+def DB_HOST = STAGE == "local" ? "localhost" : fetchSSM("/${STAGE}/database/host")
 def DB_PORT = "5432"
 def DB_NAME = "${STAGE}-institutions"
-def DB_USERNAME = STAGE == "local" ? "username" : fetchSSM("/${STAGE}/${rootProject.name}/database/user")
-def DB_PASSWORD = STAGE == "local" ? "password" : fetchSSM("/${STAGE}/${rootProject.name}/database/password")
+def DB_USERNAME = STAGE == "local" ? "username" : fetchSSM("/${STAGE}/database/user")
+def DB_PASSWORD = STAGE == "local" ? "password" : fetchSSM("/${STAGE}/database/password")
 def DB_URL = "${DB_DRIVER}:${DB_PROTOCOL}://${DB_HOST}:${DB_PORT}/${DB_NAME}"
 
 dependencies {
