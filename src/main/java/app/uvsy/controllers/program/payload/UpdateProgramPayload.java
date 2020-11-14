@@ -9,6 +9,7 @@ import java.util.Optional;
 public class UpdateProgramPayload {
 
     private final String name;
+    private final Boolean active;
     private final Integer yearFrom;
     private final Integer yearTo;
     private final Integer hours;
@@ -17,12 +18,14 @@ public class UpdateProgramPayload {
 
 
     public UpdateProgramPayload(@JsonProperty(value = "name", required = true) String name,
+                                @JsonProperty(value = "active", required = true) Boolean active,
                                 @JsonProperty(value = "yearFrom", required = true) Integer yearFrom,
                                 @JsonProperty(value = "yearTo", required = true) Integer yearTo,
                                 @JsonProperty(value = "hours") Integer hours,
                                 @JsonProperty(value = "points") Integer points,
                                 @JsonProperty(value = "amountOfSubjects") Integer amountOfSubjects) {
         this.name = name;
+        this.active = active;
         this.yearFrom = yearFrom;
         this.yearTo = yearTo;
         this.hours = Optional.ofNullable(hours).orElse(0);

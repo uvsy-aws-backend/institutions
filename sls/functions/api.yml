@@ -267,6 +267,7 @@ api:
     - http:
         path: /v1/subjects/{id}/report
         method: GET
+        cors: true
         request:
           parameters:
             paths:

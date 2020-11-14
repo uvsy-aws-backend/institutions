@@ -33,6 +33,7 @@ public class ProgramController {
         programService.updateProgram(
                 programId,
                 payload.getName(),
+                payload.getActive(),
                 payload.getYearFrom(),
                 payload.getYearTo(),
                 payload.getHours(),
@@ -44,11 +45,6 @@ public class ProgramController {
     @Handler(method = HttpMethod.DELETE, resource = "/v1/programs/{id}")
     public void deleteProgram(@PathParameter(name = "id") String programId) {
         programService.deleteProgram(programId);
-    }
-
-    @Handler(method = HttpMethod.POST, resource = "/v1/programs/{id}/activate")
-    public void activateProgram(@PathParameter(name = "id") String programId) {
-        programService.activateProgram(programId);
     }
 
     @Handler(method = HttpMethod.GET, resource = "/v1/programs/{id}/subjects")

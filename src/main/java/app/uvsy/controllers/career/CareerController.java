@@ -31,18 +31,12 @@ public class CareerController {
 
     @Handler(method = HttpMethod.PUT, resource = "/v1/careers/{id}")
     public void updateCareer(@PathParameter(name = "id") String careerId, @BodyParameter UpdateCareerPayload body) {
-        careerService.updateCareer(careerId, body.getName(), body.getCodename());
+        careerService.updateCareer(careerId, body.getName(), body.getCodename(), body.getActive());
     }
 
     @Handler(method = HttpMethod.DELETE, resource = "/v1/careers/{id}")
     public void deleteCareer(@PathParameter(name = "id") String careerId) {
         careerService.deleteCareer(careerId);
-    }
-
-    @Handler(method = HttpMethod.POST, resource = "/v1/careers/{id}/status")
-    public void activateCareer(@PathParameter(name = "id") String careerId,
-                               @QueryParameter(name = "active") Boolean active) {
-        careerService.updateCareerActive(careerId, active);
     }
 
     @Handler(method = HttpMethod.GET, resource = "/v1/careers/{id}/programs")
