@@ -260,6 +260,7 @@ api:
     - http:
         path: /v1/subjects/{id}/correlatives
         method: GET
+        cors: true
         request:
           parameters:
             paths:
