@@ -36,7 +36,7 @@ public class ProgramService {
         }
     }
 
-    public void updateProgram(String programId, String name, Integer yearFrom, Integer yearTo,
+    public void updateProgram(String programId, String name, Boolean active, Integer yearFrom, Integer yearTo,
                               Integer hours, Integer points, Integer amountOfSubjects) {
         try (ConnectionSource conn = DBConnection.create()) {
 
@@ -48,6 +48,7 @@ public class ProgramService {
             // TODO: Check that yearfrom < yearTo with a proper exception.
             if (validUpdate(program, name, yearFrom, hours, points)) {
                 program.setName(name);
+                program.setActive(active);
                 program.setYearFrom(yearFrom);
                 program.setYearTo(yearTo);
                 program.setHours(hours);
@@ -89,27 +90,11 @@ public class ProgramService {
                 .query();
 
         ProgramOverlapFilter overlapFilter = new ProgramOverlapFilter(program);
-        System.out.println(programs);
         return programs.stream().noneMatch(overlapFilter::apply);
     }
 
     private <T> boolean equal(Supplier<T> getter, T value) {
         return getter.get() != null && getter.get().equals(value);
-    }
-
-    public void activateProgram(String programId) {
-        try (ConnectionSource conn = DBConnection.create()) {
-            Dao<Program, String> programsDao = DaoManager.createDao(conn, Program.class);
-            Program program = programsDao.queryForId(programId);
-            if (!program.isActive()) {
-                program.activate();
-                programsDao.update(program);
-            }
-        } catch (SQLException | IOException e) {
-            // TODO: Add logger error
-            e.printStackTrace();
-            throw new DBException(e);
-        }
     }
 
     public void deleteProgram(String programId) {

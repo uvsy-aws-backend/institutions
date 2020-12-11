@@ -13,6 +13,7 @@ provider:
     - Effect: "Allow"
       Action:
         - "dynamodb:*"
+        - "lambda:InvokeFunction"
       Resource: "*"
   environment:
     STAGE: ${self:provider.stage}
@@ -20,6 +21,7 @@ provider:
 plugins:
   - serverless-offline
   - serverless-domain-manager
+  - serverless-plugin-warmup
   - serverless-prune-plugin
 
 package:
@@ -27,6 +29,16 @@ package:
 
 
 custom:
+
+  warmup:
+    cleanFolder: true
+    memorySize: 256
+    prewarm: true
+    enabled: true
+    name: ${self:provider.stage}-institutions-warmup-plugin
+    timeout: 30
+    events:
+      - schedule: 'cron(0/5 18-00 ? * MON-FRI *)'
 
   # Domain name configuration
   customDomain:

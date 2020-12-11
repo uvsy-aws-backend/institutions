@@ -8,11 +8,14 @@ public class UpdateCareerPayload {
 
     private final String name;
     private final String codename;
+    private final Boolean active;
 
 
     public UpdateCareerPayload(@JsonProperty(value = "name", required = true) String name,
-                               @JsonProperty(value = "codename", required = true) String codename) {
+                               @JsonProperty(value = "codename", required = true) String codename,
+                               @JsonProperty(value = "active", required = true) Boolean active) {
         this.name = name;
         this.codename = codename;
+        this.active = active;
     }
 }

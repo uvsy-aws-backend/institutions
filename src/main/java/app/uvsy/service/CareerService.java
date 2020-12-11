@@ -32,7 +32,7 @@ public class CareerService {
         }
     }
 
-    public void updateCareer(String careerId, String name, String codename) {
+    public void updateCareer(String careerId, String name, String codename, Boolean active) {
 
         try (ConnectionSource conn = DBConnection.create()) {
             Dao<Career, String> careersDao = DaoManager.createDao(conn, Career.class);
@@ -41,18 +41,6 @@ public class CareerService {
 
             career.setName(name);
             career.setCodename(codename);
-            careersDao.update(career);
-        } catch (SQLException | IOException e) {
-            // TODO: Add logger error
-            e.printStackTrace();
-            throw new DBException(e);
-        }
-    }
-
-    public void updateCareerActive(String careerId, Boolean active) {
-        try (ConnectionSource conn = DBConnection.create()) {
-            Dao<Career, String> careersDao = DaoManager.createDao(conn, Career.class);
-            Career career = careersDao.queryForId(careerId);
             career.setActive(active);
             careersDao.update(career);
         } catch (SQLException | IOException e) {
