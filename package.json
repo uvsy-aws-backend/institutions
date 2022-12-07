@@ -3,7 +3,7 @@
   "description": "Serverless REST API for institution management",
   "version": "0.0.1",
   "dependencies": {
-    "serverless": "^1.71.0"
+    "serverless": "^3.25.1"
   },
   "devDependencies": {
     "java-invoke-local": "^0.0.6",
